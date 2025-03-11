@@ -1,6 +1,8 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox
+#import tkinter as tk
+#from tkinter import filedialog, messagebox
 #import pandas as pd
+import streamlit as st
+#import python-pptx
 from pptx import Presentation
 import os
 #import python-pptx as pptx
@@ -18,13 +20,14 @@ from pandas import read_excel
 from openpyxl import load_workbook
 from pptx.util import Inches
 #import openpyxl
+#import matplotlib
 from matplotlib.pyplot import savefig, subplots
 import io
 from PIL import Image
 from pptx.enum.chart import XL_LABEL_POSITION
 #import pandas as pd
 from IPython.display import display
-import ipywidgets as widgets
+#import ipywidgets as widgets
 from pptx.enum.text import MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.dml import MSO_LINE
@@ -546,36 +549,25 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path):
 
     ppt.save(pptx_path)
 
-def select_excel_file():
-    global excel_path
-    excel_path = filedialog.askopenfilename(title="Select Excel File", filetypes=[("Excel files", "*.xlsx")])
-    if excel_path:
-        messagebox.showinfo("Selected", f"Selected Excel file: {excel_path}")
+st.title("Excel to PowerPoint Converter")
 
-def select_pptx_file():
-    global pptx_path
-    pptx_path = filedialog.askopenfilename(title="Select PowerPoint File", filetypes=[("PowerPoint files", "*.pptx")])
-    if pptx_path:
-        messagebox.showinfo("Selected", f"Selected PowerPoint file: {pptx_path}")
+# File uploaders
+excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
+pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
 
-def process_files():
-    if excel_path and pptx_path:
-        output_dir = os.path.dirname(pptx_path)
-        output_pptx_path = os.path.join(output_dir, "Template ADF PPT.pptx")
-        read_excel_and_write_to_pptx(excel_path, output_pptx_path)
-        messagebox.showinfo("Success", "File saved successfully!")
+if excel_file and pptx_file:
+    # Save uploaded files to a temporary directory
+    with open("temp_excel.xlsx", "wb") as f:
+        f.write(excel_file.getbuffer())
+    with open("temp_pptx.pptx", "wb") as f:
+        f.write(pptx_file.getbuffer())
 
-root = tk.Tk()
-root.title("Excel to PowerPoint Converter")
-root.geometry("400x300")
-
-btn_select_excel = tk.Button(root, text="Select Excel File", command=select_excel_file)
-btn_select_excel.pack(pady=10)
-
-btn_select_pptx = tk.Button(root, text="Select PowerPoint File", command=select_pptx_file)
-btn_select_pptx.pack(pady=10)
-
-btn_process_files = tk.Button(root, text="Process Files", command=process_files)
-btn_process_files.pack(pady=20)
-
-root.mainloop()
+    # Process files and overwrite the uploaded PPT file
+    read_excel_and_write_to_pptx("temp_excel.xlsx", "temp_pptx.pptx")
+    
+    st.success("File updated successfully!")
+    st.download_button(
+        label="Download Updated PowerPoint",
+        data=open("temp_pptx.pptx", "rb").read(),
+        file_name="Updated_Presentation.pptx"
+    )
