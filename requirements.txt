@@ -1,5 +1,6 @@
 streamlit
 python-pptx
+pandas
 openpyxl
 matplotlib
 Pillow
