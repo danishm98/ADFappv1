@@ -549,7 +549,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path):
 
     ppt.save(pptx_path)
 
-st.title("Excel to PowerPoint Converter")
+st.title("ADF team Project Cards - Excel to PowerPoint Converter")
 
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
