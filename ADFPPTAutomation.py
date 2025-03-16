@@ -1377,8 +1377,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 font.color.rgb = RGBColor(255, 255, 255)  # White color
 
         
-        ppt.save(pptx_path)
-        return pptx_path
+          # Save the updated PowerPoint file
+        updated_pptx_path = "updated_presentation.pptx"
+        ppt.save(updated_pptx_path)
+        return updated_pptx_path
 
 st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
