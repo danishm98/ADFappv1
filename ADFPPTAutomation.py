@@ -1,5 +1,5 @@
 #import tkinter as tk
-from tkinter import Tk, filedialog
+#from tkinter import Tk, filedialog
 #import pandas as pd
 from pptx import Presentation
 import os
@@ -2713,8 +2713,6 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 
 
-
-
 st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 # File uploaders
@@ -2744,4 +2742,3 @@ if excel_file and pptx_file and image_folder_path:
         data=output_pptx,
         file_name="ADF Season 2025 Project Cards - Updated.pptx"
     )
-
