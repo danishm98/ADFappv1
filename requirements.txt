@@ -5,7 +5,4 @@ openpyxl
 matplotlib
 Pillow
 ipywidgets
-tkinter
-os
-io
 IPython
