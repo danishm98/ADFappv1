@@ -1361,7 +1361,7 @@ excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
 pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
 
 # Directory selector for image folder with default path
-default_path = r"C:\Users\MemonD\OneDrive - Rider Levett Bucknall UK Ltd\07. ADF Automation\Project CGI"
+default_path = r"C:\Users\MemonD\images_ADF"
 image_folder_path = st.text_input("Select Image Folder", default_path)
 
 st.write("Please replace 'MemonD' with your username and ensure the SharePoint folder is available on OneDrive as a shortcut.")
