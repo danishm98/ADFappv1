@@ -46,6 +46,9 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import zipfile
 
+def count_images_in_folder(folder_path):
+    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    return len(image_files)
 
 def count_images_in_zip(zip_buffer):
     with zipfile.ZipFile(zip_buffer, 'r') as zip_ref:
