@@ -1379,9 +1379,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         ppt.save(pptx_path)
 
-
-
-
+st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
@@ -1402,17 +1400,17 @@ if excel_file and pptx_file and image_zip_file:
     
     image_files = extract_images_from_zip(io.BytesIO(image_zip_file.getbuffer()), image_folder_path)
     
-    # Count the number of images in the zip file
-    num_images = count_images_in_zip(io.BytesIO(image_zip_file.getbuffer()))
+    # Count the number of images in the folder
+    num_images = count_images_in_folder(image_folder_path)
     
     # Process files and overwrite the uploaded PPT file
-    read_excel_and_write_to_pptx(excel_data, pptx_data, image_folder_path)
+    updated_pptx_path = read_excel_and_write_to_pptx(excel_data, pptx_data, image_folder_path)
     
     # Load the updated presentation
-    with open("updated_presentation.pptx", "rb") as f:
+    with open(updated_pptx_path, "rb") as f:
         output_pptx = io.BytesIO(f.read())
     
-    st.success("File updated successfully!")
+    st.success(f"File updated successfully! Number of images processed: {num_images}")
     st.download_button(
         label="Download Updated PowerPoint",
         data=output_pptx,
