@@ -1413,7 +1413,7 @@ if excel_file and pptx_file and image_zip_file:
     with open(updated_pptx_path, "rb") as f:
         output_pptx = io.BytesIO(f.read())
     
-    st.success(f"File updated successfully! Downloading Now...")
+    st.success(f"File updated successfully! Download below")
     st.download_button(
         label="Download Updated PowerPoint",
         data=output_pptx,
