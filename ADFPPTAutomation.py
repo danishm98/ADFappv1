@@ -6,8 +6,8 @@ import os
 from pptx import Presentation
 import pandas as pd
 from openpyxl import load_workbook
-import tkinter as tk
-from tkinter import filedialog
+#import tkinter as tk
+#from tkinter import filedialog
 #import pandas as pd
 from pptx import Presentation
 import os
@@ -44,18 +44,29 @@ from pptx.oxml.xmlchemy import OxmlElement
 from pptx.enum.dml import MSO_FILL
 from datetime import datetime
 import matplotlib.pyplot as plt
+import zipfile
 
-
-def count_images_in_folder(folder_path):
-    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+def count_images_in_zip(zip_file_path):
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        image_files = [f for f in zip_ref.namelist() if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
     return len(image_files)
+
+def extract_images_from_zip(zip_file_path, extract_to_folder):
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to_folder)
+    return [f for f in os.listdir(extract_to_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
 def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
-    # Get the list of image files from the selected folder
-    image_files = [f for f in os.listdir(image_folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
-    # Count the number of images in the folder
-    num_images = count_images_in_folder(image_folder_path)
+    image_zip_file_path = "path_to_uploaded_zip_file.zip"
+    image_folder_path = "extracted_images"
+    
+    # Extract images from the zip file
+    image_files = extract_images_from_zip(image_zip_file_path, image_folder_path)
+    
+    # Count the number of images in the extracted folder
+    num_images = count_images_in_zip(image_zip_file_path)
+
     
     df = read_excel(excel_path)
     #ppt = Presentation(pptx_path)
@@ -474,15 +485,13 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     risk_assessment = pm_row[risk_assessment_col]
 
         print(f"project_status:{project_status}")
-        #matching_image_found = False
+        
+        # Process each image file
         for image_file in image_files:
             image_name, _ = os.path.splitext(image_file)
             if project_name.lower() == image_name.lower():
                 image_path = os.path.join(image_folder_path, image_file)
-
-        new_slide.shapes.add_picture(image_path, left=320893, top=4800600, width=4858788, height=4074726)
-        #matching_image_found = True
-        #break
+                new_slide.shapes.add_picture(image_path, left=320893, top=4800600, width=4858788, height=4074726)
         
         
         for shape in new_slide.shapes:
@@ -1363,29 +1372,25 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 
 
-def select_folder():
-    root = tk.Tk()
-    root.withdraw()  # Hide the root window
-    folder_path = filedialog.askdirectory()
-    return folder_path
 
 st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
 pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
+image_zip_file = st.file_uploader("Select Image Zip File", type=["zip"])
 
-# Button to select image folder
-if st.button("Select Image Folder"):
-    image_folder_path = select_folder()
-    st.text_input("Selected Image Folder", image_folder_path)
-
-if excel_file and pptx_file and image_folder_path:
+if excel_file and pptx_file and image_zip_file:
     # Read Excel file directly from the uploaded file
     excel_data = io.BytesIO(excel_file.getbuffer())
     
     # Read PowerPoint file directly from the uploaded file
     pptx_data = io.BytesIO(pptx_file.getbuffer())
+    
+    # Extract images from the uploaded zip file
+    image_folder_path = "extracted_images"
+    with zipfile.ZipFile(io.BytesIO(image_zip_file.getbuffer()), 'r') as zip_ref:
+        zip_ref.extractall(image_folder_path)
     
     # Process files and overwrite the uploaded PPT file
     read_excel_and_write_to_pptx(excel_data, pptx_data, image_folder_path)
