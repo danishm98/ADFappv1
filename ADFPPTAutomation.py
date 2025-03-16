@@ -1,5 +1,13 @@
 #import tkinter as tk
 #from tkinter import Tk, filedialog
+import streamlit as st
+import io
+import os
+from pptx import Presentation
+import pandas as pd
+from openpyxl import load_workbook
+import tkinter as tk
+from tkinter import filedialog
 #import pandas as pd
 from pptx import Presentation
 import os
@@ -1354,17 +1362,23 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ppt.save(pptx_path)
 
 
+
+def select_folder():
+    root = tk.Tk()
+    root.withdraw()  # Hide the root window
+    folder_path = filedialog.askdirectory()
+    return folder_path
+
 st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
 pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
 
-# Directory selector for image folder with default path
-default_path = r"C:\Users\MemonD\images_ADF"
-image_folder_path = st.text_input("Select Image Folder", default_path)
-
-st.write("Please replace 'MemonD' with your username and ensure the SharePoint folder is available on OneDrive as a shortcut.")
+# Button to select image folder
+if st.button("Select Image Folder"):
+    image_folder_path = select_folder()
+    st.text_input("Selected Image Folder", image_folder_path)
 
 if excel_file and pptx_file and image_folder_path:
     # Read Excel file directly from the uploaded file
