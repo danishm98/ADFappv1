@@ -530,7 +530,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 text_frame = textbox.text_frame
                 p1 = text_frame.paragraphs[0]
                 #text_frame.clear()
-                p1.text = str(insert_position-2)
+                p1.text = str(insert_position-1)
                 insert_position += 1  # Update the position for the next slide/iteration
                 p1.font.size = Pt(24)  # Set font size (optional)
                 p1.alignment = PP_ALIGN.LEFT  # Align text to the left
