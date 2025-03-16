@@ -1,5 +1,5 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox
+#import tkinter as tk
+#from tkinter import filedialog, messagebox
 #import pandas as pd
 from pptx import Presentation
 import os
