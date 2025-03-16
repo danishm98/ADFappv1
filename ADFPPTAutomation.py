@@ -46,26 +46,32 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import zipfile
 
-def count_images_in_zip(zip_file_path):
-    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+
+def count_images_in_zip(zip_buffer):
+    with zipfile.ZipFile(zip_buffer, 'r') as zip_ref:
         image_files = [f for f in zip_ref.namelist() if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
     return len(image_files)
 
-def extract_images_from_zip(zip_file_path, extract_to_folder):
-    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+def extract_images_from_zip(zip_buffer, extract_to_folder):
+    with zipfile.ZipFile(zip_buffer, 'r') as zip_ref:
         zip_ref.extractall(extract_to_folder)
     return [f for f in os.listdir(extract_to_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
 def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
-    image_zip_file_path = "path_to_uploaded_zip_file.zip"
-    image_folder_path = "extracted_images"
+    #image_zip_file_path = "path_to_uploaded_zip_file.zip"
+    #image_folder_path = "extracted_images"
     
     # Extract images from the zip file
-    image_files = extract_images_from_zip(image_zip_file_path, image_folder_path)
+    #image_files = extract_images_from_zip(image_zip_file_path, image_folder_path)
     
     # Count the number of images in the extracted folder
-    num_images = count_images_in_zip(image_zip_file_path)
+    #num_images = count_images_in_zip(image_zip_file_path)
+    
+    image_files = [f for f in os.listdir(image_folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    # Count the number of images in the folder
+    num_images = count_images_in_folder(image_folder_path)
+    
 
     
     df = read_excel(excel_path)
@@ -1373,7 +1379,6 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 
 
-st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
@@ -1389,8 +1394,13 @@ if excel_file and pptx_file and image_zip_file:
     
     # Extract images from the uploaded zip file
     image_folder_path = "extracted_images"
-    with zipfile.ZipFile(io.BytesIO(image_zip_file.getbuffer()), 'r') as zip_ref:
-        zip_ref.extractall(image_folder_path)
+    if not os.path.exists(image_folder_path):
+        os.makedirs(image_folder_path)
+    
+    image_files = extract_images_from_zip(io.BytesIO(image_zip_file.getbuffer()), image_folder_path)
+    
+    # Count the number of images in the zip file
+    num_images = count_images_in_zip(io.BytesIO(image_zip_file.getbuffer()))
     
     # Process files and overwrite the uploaded PPT file
     read_excel_and_write_to_pptx(excel_data, pptx_data, image_folder_path)
