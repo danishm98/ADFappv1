@@ -1268,7 +1268,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         print(f"Construction Progress:{construction_progress}")
         print(f"Remaining Progress:{remaining}")
         
-        sizes = [int((construction_progress*100)), int((remaining*100))]
+        sizes = [int(round(construction_progress*100)), int(round(remaining*100))]
         labels = ['Completed', 'In Progress']
         colors = ['#0aa57f', '#1d5889'] # RGB: (10, 165, 127) and (29, 88, 137)
         
@@ -1287,7 +1287,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Construction\n Progress:\n' + str(round(construction_progress*100, 2)) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Construction\n Progress:\n' + str(round(construction_progress*100)) + ' %', ha='center', va='center', fontsize=25)
         
         # Save the plot to a BytesIO object
         buf = io.BytesIO()
@@ -1305,8 +1305,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Chart data--------------------------------------------------------------------------------------
         # Data for the donut chart
-        cost_to_complete = 100 - int((payment_progress*100))
-        sizes = [int((payment_progress*100)), cost_to_complete]
+        cost_to_complete = round(100 - int((payment_progress*100)))
+        sizes = [int(round(payment_progress*100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
         colors = ['#0aa57f', '#1d5889'] # RGB: (10, 165, 127) and (29, 88, 137)
         
@@ -1325,7 +1325,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' + str(round(payment_progress*100, 2)) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Payment\n Progress:\n' + str(round(payment_progress*100)) + ' %', ha='center', va='center', fontsize=25)
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
