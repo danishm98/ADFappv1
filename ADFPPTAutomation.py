@@ -1384,6 +1384,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
+
+# Button to show/hide instructions
+if st.button("Show Instructions"):
+    st.header("Instructions to use this App effectively:")
+    st.markdown("""
+    1. To facilitate easier uploads and avoid needing to download copies before each upload, make sure the '07. ADF Automation' folder has been added as a shortcut on your PC via OneDrive (select 'Add Shortcut to OneDrive' from the SharePoint site). Then, select those files while uploading and copies of them will be used automatically.
+    2. Ensure the order of projects in CM & PM tabs match, and make sure there's no blank/extra rows. Hidden rows are automatically excluded.
+    3. The project images need to be zipped into a folder before upload, with file names matching corresponding project names. If you need to exclude a project in the PPT, no need to remove the image from the zip folder, it'll be excluded automatically. Just mark the 'Include in PPT' column as 'no'
+    """)
+
 # File uploaders
 excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
 pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
