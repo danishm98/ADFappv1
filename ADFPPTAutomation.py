@@ -113,7 +113,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     
     # Access the header row values directly
     header_row = [cell.value for cell in sheet[include_in_ppt_idx + 1]]
-    print(f"header row: {header_row}")
+    #print(f"header row: {header_row}")
 
     # Scan the header row for "Project Name" 
     project_name_col = None
@@ -262,7 +262,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             elif "Current Project Cost" in cell_value:
                 current_project_cost_col = idx
         
-    print(f"Project Name Column: {project_name_col}")
+    #print(f"Project Name Column: {project_name_col}")
     if project_name_col is None:
         st.error(f"Project Name is blank in one of the to-be-included in PPT rows in the Excel file. Please re-upload and try again")
         st.stop()
@@ -288,7 +288,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             if any(cell.value for cell in row):
                 slides_count += 1
     
-    print(f"Number of data (project) rows: {slides_count}")
+    #print(f"Number of data (project) rows: {slides_count}")
     if slides_count == 0:
         st.error(f"Either the Excel file's CM tab has ALL hidden/blank rows or the 'Include in PPT column' is not set to 'yes' for any record. Please re-upload and try again")
         st.stop()
@@ -314,7 +314,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     
     # Access the header row values directly
     header_row_pm = [cell.value for cell in sheet2[category_index + 1]]
-    print(f"header row PM: {header_row_pm}")
+    #print(f"header row PM: {header_row_pm}")
 
     slides_count_PM = 0
     for row in sheet2.iter_rows(min_row=category_index + 2):
@@ -322,7 +322,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             if any(cell.value for cell in row):
                 slides_count_PM += 1
 
-    print(f"Number of data (project) rows in PM tab: {slides_count_PM}")
+    #print(f"Number of data (project) rows in PM tab: {slides_count_PM}")
     if slides_count_PM == 0 or slides_count != slides_count_PM:
         st.error(f"Either the Excel file's PM tab is missing or hidden project rows, or there's a mismatch in number of projects in CM & PM tabs. Please fix, re-upload the Excel file and try again")
         st.stop()
@@ -454,7 +454,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     #if current_project_cost_col is not None:
                     #    current_project_cost = data_row[current_project_cost_col]
                 #break
-        print(f"Project Name: {project_name} and Include in PPT:{include_in_ppt}")
+        #print(f"Project Name: {project_name} and Include in PPT:{include_in_ppt}")
 
         # Extract the first row of actual PM TAB DATA.. (ignoring hidden rows)
         for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
@@ -477,7 +477,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     construction_progress = pm_row[construction_progress_col]
                 if remaining_col is not None:
                     remaining = pm_row[remaining_col]
-                    print(f"remaining percentage:{remaining}")
+                    #print(f"remaining percentage:{remaining}")
                 if project_config_col is not None:
                     project_config = pm_row[project_config_col]
                 if space_programme_col is not None:
@@ -491,7 +491,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 if risk_assessment_col is not None:
                     risk_assessment = pm_row[risk_assessment_col]
 
-        print(f"project_status:{project_status}")
+        #print(f"project_status:{project_status}")
         
         # Process each image file
         for image_file in image_files:
@@ -716,7 +716,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.rows[4].height = 1121475  # Adjusted height for merged row
 
         table2.table.cell(1,2).text = str("{:,}".format(site_area)) + ' m2'
-        print(f"site area:{site_area}")
+        #print(f"site area:{site_area}")
         table2.table.cell(1,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(1,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(1,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
@@ -1265,8 +1265,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     
     # Chart data------------------------------------------------------------------
         # Data for the donut chart
-        print(f"Construction Progress:{construction_progress}")
-        print(f"Remaining Progress:{remaining}")
+        #print(f"Construction Progress:{construction_progress}")
+        #print(f"Remaining Progress:{remaining}")
         
         sizes = [int(round(construction_progress*100)), int(round(remaining*100))]
         labels = ['Completed', 'In Progress']
