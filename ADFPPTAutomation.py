@@ -1393,9 +1393,9 @@ st.markdown("""
 """)
 
 # File uploaders
-excel_file = st.file_uploader("Select Excel File", type=["xlsx"])
-pptx_file = st.file_uploader("Select PowerPoint File", type=["pptx"])
-image_zip_file = st.file_uploader("Select Image Zip File", type=["zip"])
+excel_file = st.file_uploader("Select Project Cards Excel File", type=["xlsx"])
+pptx_file = st.file_uploader("Select PowerPoint Cover Template", type=["pptx"])
+image_zip_file = st.file_uploader("Select Images Zip File", type=["zip"])
 
 if excel_file and pptx_file and image_zip_file:
     # Read Excel file directly from the uploaded file
