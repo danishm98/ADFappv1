@@ -599,7 +599,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1, 6).text = str(f"{overall_progress * 100:.0f}%")
         table1.table.cell(1,7).text = str(format_number(current_project_cost)) + " SAR"
         table1.table.cell(1,8).text = str(format_number(forecast_to_complete)) + " SAR"
-        table1.table.cell(1,9).text = str((round(cost_m2))) + " SAR / m2"
+        table1.table.cell(1,9).text = str("{:,}m2".format((round(cost_m2)))) + " SAR / m2"
         
     
         # Style the first row with the given color and white, bold text
@@ -717,14 +717,14 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.rows[3].height = 281850
         table2.table.rows[4].height = 1121475  # Adjusted height for merged row
 
-        table2.table.cell(1,2).text = str(site_area)
+        table2.table.cell(1,2).text = str("{:,}".format(site_area)) + ' m2'
         print(f"site area:{site_area}")
         table2.table.cell(1,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(1,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(1,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
         
-        table2.table.cell(2,2).text = str(built_up_area)
+        table2.table.cell(2,2).text = str("{:,}".format(built_up_area)) + ' m2'
         table2.table.cell(2,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(2,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(2,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
