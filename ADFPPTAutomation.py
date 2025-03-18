@@ -375,9 +375,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         if not is_hidden_row_or_column(sheet, row_idx=row_idx + include_in_ppt_idx + 2):
             if row[include_in_ppt_col] == "yes":  # if that particular row is to be included in the PPT or not
                 data_rows.append(row)
-    #if num_images != len(data_rows):
-    #    st.error(f"Number of images ({num_images}) does not match the number of data rows ({len(data_rows)}). Please fix, reload app and reupload the Excel file and select updated image folder path")
-    #    st.stop()
+
 
     ######################### -------------------- PM Data array
     data_rows_PM = []
