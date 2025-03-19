@@ -1189,14 +1189,14 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Clear any existing paragraphs
         last_row_text_frame.clear()
-        
+
         # Add the first paragraph
         p1 = last_row_text_frame.add_paragraph()
         p1.text = "Forecast Construction Spend"
         p1.font.color.rgb = RGBColor(255, 255, 255)  # White text color
         p1.font.bold = True
         p1.font.name = "Tajawal"
-        p1.font.size = Pt(13)
+        p1.font.size = Pt(11)
         p1.alignment = PP_ALIGN.CENTER
         
         # Add the second paragraph for the text after the newline character
@@ -1205,8 +1205,11 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         p2.font.color.rgb = RGBColor(255, 255, 255)  # White text color
         p2.font.bold = True
         p2.font.name = "Tajawal"
-        p2.font.size = Pt(13)
+        p2.font.size = Pt(11)
         p2.alignment = PP_ALIGN.CENTER
+        
+        # Ensure no extra line breaks are added
+        last_row_text_frame.word_wrap = True
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
@@ -1299,7 +1302,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Construction\n Progress:\n' + str(int(round(construction_progress * 100))) + ' %', ha='center', va='center', fontsize=30, fontname='Tajawal')
+        ax.text(0, 0, 'Construction\n Progress:\n', ha='center', va='center', fontsize=30, fontname='Tajawal')
         ax.text(0, -0.2, str(int(round(construction_progress * 100))) + '%', ha='center', va='center', fontsize=40,fontname='Tajawal')
         
         # Save the plot to a BytesIO object
