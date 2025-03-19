@@ -593,9 +593,9 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
         table1.table.cell(1,1).text = project_status
         table1.table.cell(1,2).text = design_status
-        table1.table.cell(1,3).text = str(construction_start_date.strftime("%d %B %Y"))
-        table1.table.cell(1,4).text = str(target_completion_date.strftime("%d %B %Y"))
-        table1.table.cell(1,5).text = str(forecast_completion_date.strftime("%d %B %Y"))
+        table1.table.cell(1,3).text = str(construction_start_date.strftime("%d %b %Y"))
+        table1.table.cell(1,4).text = str(target_completion_date.strftime("%d %b %Y"))
+        table1.table.cell(1,5).text = str(forecast_completion_date.strftime("%d %b %Y"))
         table1.table.cell(1, 6).text = str(f"{overall_progress * 100:.0f}%")
         table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
@@ -632,7 +632,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE  # Vertically center align the text
     
         # Set column widths
-        column_widths =  [1519819, 1127682, 1118378, 1188883, 1380492, 1358906, 853942, 1401989, 1150013, 1071117]
+        column_widths = [1533857, 1071297, 1062459, 1202921, 1394530, 1372944, 867980, 1416027, 1164051, 1085155]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
     
@@ -923,6 +923,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_12.cell(1, 1).text = "Daily Machinery"
         shape_12.cell(2,0).text = str(daily_manpower)
         shape_12.cell(2,1).text = str(daily_machinery)
+        shape_12.cell(2, 0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        shape_12.cell(2, 1).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         cell_12_text_frame_1 = shape_12.cell(1, 0).text_frame
         cell_12_text_frame_1.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)  # Black text color
         cell_12_text_frame_1.paragraphs[0].font.bold = True
@@ -1228,23 +1230,26 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Shape 21: Table
         shape_21 = new_slide.shapes.add_table(2, 1, Inches(5342195 / 914400), Inches(7841010 / 914400), Inches(7136239 / 914400), Inches(1034316 / 914400)).table
         shape_21.cell(0, 0).text = "Risk Assessment"
+        
         # Set the first row background color to RGBColor(21, 42, 93) with white bold text
         shape_21.cell(0, 0).fill.solid()
         shape_21.cell(0, 0).fill.fore_color.rgb = RGBColor(21, 42, 93)
-        total_height=Inches(1015802.4 / 914400)
+        total_height = Inches(1015802.4 / 914400)
         cell_21_text_frame = shape_21.cell(0, 0).text_frame
         cell_21_text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)  # White text color
         cell_21_text_frame.paragraphs[0].font.bold = True
         cell_21_text_frame.paragraphs[0].font.size = Pt(13)
         cell_21_text_frame.paragraphs[0].font.name = "Tajawal"
-        cell_21_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Left align the text
+        cell_21_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Center align the text
+        
         # Set the second row background color to RGBColor(233, 245, 245)
         shape_21.cell(1, 0).fill.solid()
         shape_21.cell(1, 0).fill.fore_color.rgb = RGBColor(233, 245, 245)
+        
+        # Set row heights explicitly to avoid resizing
         shape_21.rows[0].height = int(total_height * 0.3)
         shape_21.rows[1].height = int(total_height * 0.7)
-        shape_21.rows[1].height = int(shape_21.rows[1].height * 1.3)
-
+        
         # Split the text into lines
         lines = risk_assessment.split('\n')
         
@@ -1254,40 +1259,26 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Clear any existing paragraphs
         text_frame.clear()
         
-        # Add each line as a bullet point
+        # Add each line as a bullet point without introducing extra line breaks
         for line in lines:
             p = text_frame.add_paragraph()
-            p.text = line
+            p.text = line.strip()  # Strip any leading/trailing whitespace
             p.font.size = Pt(13)
-            #p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
             p.level = 0  # Bullet point level
             p.alignment = PP_ALIGN.LEFT
-
+        
         # Optionally, set the font name for all paragraphs
         for p in text_frame.paragraphs:
             p.font.name = "Tajawal"
-            p.font.color.rgb = RGBColor(0,0,0)
+            p.font.color.rgb = RGBColor(0, 0, 0)
             p.font.size = Pt(13)
             p.alignment = PP_ALIGN.LEFT
+        
+        # Set the text color to white for the first row
+        shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
-        #shape_11.cell(1,0).text = remaining_items
-        # Set the first row background color to RGBColor(21, 42, 93) with white bold text
 
 
-        #for row in shape_21.rows:
-        #    for cell in row.cells:
-                #cell.margin_left = 0
-                #cell.margin_right = 0
-                #cell.margin_top = 0
-                #cell.margin_bottom = 0
-                #cell.text_frame.paragraphs[0].font.color.rgb = RGBColor(0,0,0)
-
-        shape_21.rows[0].height = int(shape_15.rows[0].height * 0.8)
-        # Set the text color to white
-        shape_21.cell(0, 0).text_frame.paragraphs[0].runs[0].font.color.rgb = RGBColor(255, 255, 255)
-        #for paragraph in text_frame.paragraphs:
-        #    paragraph.font.color.rgb = RGBColor(255, 255, 255)  # White text color
-                    
             # Data for the first donut chart----------------------------------------------------------------------------------------------------
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
         labels = ['Progress', 'Remaining']
