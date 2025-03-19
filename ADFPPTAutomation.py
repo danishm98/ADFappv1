@@ -632,7 +632,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE  # Vertically center align the text
     
         # Set column widths
-        column_widths = [1476831, 1209686, 1162981, 1382471, 1121396, 1404806, 832506, 1360631, 1264463, 922645]
+        column_widths =  [1519819, 1127682, 1118378, 1188883, 1380492, 1358906, 853942, 1401989, 1150013, 1071117]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
     
