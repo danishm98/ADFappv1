@@ -954,6 +954,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.margin_bottom = 0
                 cell.text_frame.paragraphs[0].font.size = Pt(13)
                 cell.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
+                cell.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         
         # Shape 13: Table
         shape_13 = new_slide.shapes.add_table(1, 2, Inches(5333250 / 914400), Inches(2673352 / 914400), Inches(2362950 / 914400), Inches(365760 / 914400)).table
@@ -1210,6 +1211,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Ensure no extra line breaks are added
         last_row_text_frame.word_wrap = True
+
+        # Manually clear the first encountered line break from the text/cell afterward
+        for paragraph in last_row_text_frame.paragraphs:
+            if '\n' in paragraph.text:
+                paragraph.text = paragraph.text.replace('\n', ' ', 1)
+                break
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
@@ -1296,7 +1303,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                                           pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them bigger
-        ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25)
+        ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
+          handlelength=1.5, handleheight=1.5)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
@@ -1356,7 +1364,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add the image to the slide from BytesIO object
         new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
-        
+        -------------------------------------------------------------------------------------------------------------------------------------
         
         # Define the shape properties to detect
         shape_type = 17  # TEXT_BOX
