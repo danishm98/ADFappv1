@@ -1179,14 +1179,32 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 
         
         # Set the background color to RGB(29, 88, 137) and text to white bold for the last row
+        # Get the last row cell
         last_row_cell = shape_20.cell(num_rows - 1, 0)
         last_row_cell.fill.solid()
         last_row_cell.fill.fore_color.rgb = RGBColor(29, 88, 137)
         last_row_text_frame = last_row_cell.text_frame
-        last_row_text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)  # White text color
-        last_row_text_frame.paragraphs[0].font.bold = True
-        last_row_text_frame.paragraphs[0].font.name = "Tajawal"
-        last_row_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
+        
+        # Clear any existing paragraphs
+        last_row_text_frame.clear()
+        
+        # Add the first paragraph
+        p1 = last_row_text_frame.add_paragraph()
+        p1.text = "Forecast Construction Spend"
+        p1.font.color.rgb = RGBColor(255, 255, 255)  # White text color
+        p1.font.bold = True
+        p1.font.name = "Tajawal"
+        p1.font.size = Pt(13)
+        p1.alignment = PP_ALIGN.CENTER
+        
+        # Add the second paragraph for the text after the newline character
+        p2 = last_row_text_frame.add_paragraph()
+        p2.text = forecast_construction_spend
+        p2.font.color.rgb = RGBColor(255, 255, 255)  # White text color
+        p2.font.bold = True
+        p2.font.name = "Tajawal"
+        p2.font.size = Pt(13)
+        p2.alignment = PP_ALIGN.CENTER
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
