@@ -632,7 +632,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE  # Vertically center align the text
     
         # Set column widths
-        column_widths = [1486150, 1219005, 1172300, 1391790, 1130715, 1414125, 841825, 1369950, 1273782, 838769]
+        column_widths = [1486150, 1219005, 1172300, 1391790, 1243786, 1414125, 841825, 1369950, 1401160, 598320]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
     
@@ -1093,7 +1093,6 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #    values.append("Current Project Cost")
         forecast_construction_spend = str(format_number(forecast_construction_spend))
         values.append(f"Forecast Construction Spend {forecast_construction_spend}")
-        # Add the table with specified position and size
 
         num_rows = len(values)
         num_cols = 2
@@ -1125,7 +1124,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         for row in shape_20.rows:
             for cell in row.cells:
-                cell.margin_left = Pt(1.5)
+                cell.margin_left = Inches(0.1)
                 cell.margin_right = 0
                 cell.margin_top = 0
                 cell.margin_bottom = 0
