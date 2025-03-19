@@ -1117,14 +1117,14 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Set the first column width to 80% of the total width
         total_width = shape_20_width
-        first_col_width = int(total_width * 0.75)
-        second_col_width = int(total_width * 0.25)
+        first_col_width = int(total_width * 0.7)
+        second_col_width = int(total_width * 0.3)
         shape_20.columns[0].width = first_col_width
         shape_20.columns[1].width = second_col_width
         
         for row in shape_20.rows:
             for cell in row.cells:
-                cell.margin_left = Inches(0.1)
+                cell.margin_left = Inches(0.05)
                 cell.margin_right = 0
                 cell.margin_top = 0
                 cell.margin_bottom = 0
