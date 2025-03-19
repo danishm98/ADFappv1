@@ -1213,6 +1213,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Manually clear the first encountered line break from the text/cell afterward
         for paragraph in last_row_text_frame.paragraphs:
             paragraph.text = paragraph.text.replace('\n', ' ')
+            paragraph.text = paragraph.text.lstrip('\n')
         #p1.text = p1.text.lstrip('\n')
         
         # Adjust row heights to ensure the table fits within the specified height
