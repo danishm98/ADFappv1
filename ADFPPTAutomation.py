@@ -1364,7 +1364,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add the image to the slide from BytesIO object
         new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
-        -------------------------------------------------------------------------------------------------------------------------------------
+        #-------------------------------------------------------------------------------------------------------------------------------------
         
         # Define the shape properties to detect
         shape_type = 17  # TEXT_BOX
