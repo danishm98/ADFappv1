@@ -512,7 +512,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
                 p.font.size = Pt(24)  # Set font size (optional)
                 p.alignment = PP_ALIGN.RIGHT  # Align text to the right
-                p.font.name = 'Arial'
+                p.font.name = 'Tajawal'
                 
                 # Insert a textbox with slide_count to the very left inside the placeholder shape
                 #left = shape.left - Inches(1.0)  # Adjust position to the left of the placeholder shape
@@ -532,7 +532,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 insert_position += 1  # Update the position for the next slide/iteration
                 p1.font.size = Pt(24)  # Set font size (optional)
                 p1.alignment = PP_ALIGN.LEFT  # Align text to the left
-                p1.font.name = 'Arial'
+                p1.font.name = 'Tajawal'
     
         # Define properties for the first table (table1) - always static
         table1_position = (304800, 1125677)
@@ -589,14 +589,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 
         table1.table.cell(1, 0).text = project_name
         table1.table.cell(1,0).text_frame.paragraphs[0].font.bold = True
+        table1.table.cell(1,0).text_frame.paragraphs[0].font.name = 'Tajawal'
+        table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
         table1.table.cell(1,1).text = project_status
         table1.table.cell(1,2).text = design_status
         table1.table.cell(1,3).text = str(construction_start_date.strftime("%d %B %Y"))
         table1.table.cell(1,4).text = str(target_completion_date.strftime("%d %B %Y"))
         table1.table.cell(1,5).text = str(forecast_completion_date.strftime("%d %B %Y"))
         table1.table.cell(1, 6).text = str(f"{overall_progress * 100:.0f}%")
-        table1.table.cell(1,7).text = str(format_number(current_project_cost)) + " SAR"
-        table1.table.cell(1,8).text = str(format_number(forecast_to_complete)) + " SAR"
+        table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
+        table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
         table1.table.cell(1,9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
         
     
@@ -630,7 +632,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE  # Vertically center align the text
     
         # Set column widths
-        column_widths = [1486150, 1219005, 1172300, 1159825, 1409073, 1414125, 841825, 1369950, 1107637, 1029837]
+        column_widths = [1486150, 1219005, 1172300, 1391790, 1130715, 1414125, 841825, 1369950, 1107637, 1029837]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
     
@@ -697,7 +699,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         cell6 = table2.table.cell(4, 1)
         cell5.merge(cell6)  # Merge cells in row 5, columns 1 and 2
         cell5.text_frame.text = "Space Programme"  # Add text
-        cell5.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
+        cell5.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Left align the text
         cell5.text_frame.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)  # Black text
         cell5.text_frame.paragraphs[0].font.size = Pt(10)  # Set font size to Pt(12)
         cell5.text_frame.paragraphs[0].font.bold = True  # Bold text
