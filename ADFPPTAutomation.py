@@ -451,8 +451,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                         variation = data_row[variation_col]
                     if vat_col is not None:
                         vat = data_row[vat_col]
-                    #if current_project_cost_col is not None:
-                    #    current_project_cost = data_row[current_project_cost_col]
+                    if current_project_cost_col is not None:
+                        current_project_cost = data_row[current_project_cost_col]
                 #break
         #print(f"Project Name: {project_name} and Include in PPT:{include_in_ppt}")
 
@@ -1181,6 +1181,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         last_row_text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)  # White text color
         last_row_text_frame.paragraphs[0].font.bold = True
         last_row_text_frame.paragraphs[0].font.name = "Tajawal"
+        last_row_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
@@ -1264,20 +1265,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #for paragraph in text_frame.paragraphs:
         #    paragraph.font.color.rgb = RGBColor(255, 255, 255)  # White text color
                     
-    # Chart data------------------------------------------------------------------
-        # Data for the donut chart
-        #print(f"Construction Progress:{construction_progress}")
-        #print(f"Remaining Progress:{remaining}")
-        
-        sizes = [int(round(construction_progress*100)), int(round(remaining*100))]
+            # Data for the first donut chart
+        sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
         labels = ['Completed', 'In Progress']
-        colors = ['#0aa57f', '#1d5889'] # RGB: (10, 165, 127) and (29, 88, 137)
+        colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
         
         # Create a figure and axis with equal aspect ratio to avoid squeezing
         fig, ax = plt.subplots(figsize=(8, 8))
         
         # Create the donut chart with thicker white borders for slices
-        wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.1f}%'.format(p) if p > 7 else '',
+        wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
                                           pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
@@ -1288,7 +1285,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Construction\n Progress:\n' + str(round(construction_progress*100)) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Construction\n Progress:\n' + str(round(construction_progress * 100)) + ' %', ha='center', va='center', fontsize=25)
         
         # Save the plot to a BytesIO object
         buf = io.BytesIO()
@@ -1299,23 +1296,22 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         left = 7884225
         top = 2964434
         width = 2245675
-        height = 2355166 # Adjusted height to maintain aspect ratio
+        height = 2355166  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        new_slide.shapes.add_picture(buf, left, top, width, height)
+        # new_slide.shapes.add_picture(buf, left, top, width, height)
         
-        # Chart data--------------------------------------------------------------------------------------
-        # Data for the donut chart
-        cost_to_complete = round(100 - int((payment_progress*100)))
-        sizes = [int(round(payment_progress*100)), cost_to_complete]
+        # Data for the second donut chart
+        cost_to_complete = round(100 - int((payment_progress * 100)))
+        sizes = [int(round(payment_progress * 100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
-        colors = ['#0aa57f', '#1d5889'] # RGB: (10, 165, 127) and (29, 88, 137)
+        colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
         
         # Create a figure and axis with equal aspect ratio to avoid squeezing
         fig, ax = plt.subplots(figsize=(8, 8))
         
         # Create the donut chart with thicker white borders for slices
-        wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.1f}%'.format(p) if p > 7 else '',
+        wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
                                           pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
@@ -1326,7 +1322,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' + str(round(payment_progress*100)) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Payment\n Progress:\n' + str(round(payment_progress * 100)) + ' %', ha='center', va='center', fontsize=25)
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
@@ -1340,9 +1336,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height2 = 2355166
         
         # Add the image to the slide from BytesIO object
-        new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
-
-        
+        # new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
         
         
         # Define the shape properties to detect
