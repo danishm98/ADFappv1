@@ -1096,7 +1096,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #if current_project_cost != "" and current_project_cost != 0:
         #    values.append("Current Project Cost")
         forecast_construction_spend = str(format_number(forecast_construction_spend))
-        values.append(f"Forecast Construction Spend {forecast_construction_spend}")
+        values.append(f"Forecast Construction Spend\n{forecast_construction_spend}")
 
         num_rows = len(values)
         num_cols = 2
@@ -1139,6 +1139,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.text_frame.paragraphs[0].font.size = Pt(11)
                 cell.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT
                 cell.text_frame.paragraphs[0].space_after = Pt(0)  # Minimal line spacing
+            
         
         # Set the values in the first column and set text size to Pt(11) and not bold
         for i, value in enumerate(values):
@@ -1155,7 +1156,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell_text_frame.paragraphs[0].font.size = Pt(11)
             cell_text_frame.paragraphs[0].font.bold = False
             cell_text_frame.paragraphs[0].font.name = "Tajawal"
-            cell_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
+            cell_text_frame.paragraphs[0].alignment = PP_ALIGN.RIGHT
         
         # Ensure the first row is not styled as a heading/header and has normal text like the other cells
         for i in range(num_cols):
@@ -1326,8 +1327,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=12,fontname='Tajawal')
-        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + ' %', ha='center', va='center', fontsize=20,fontname='Tajawal')
+        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=25,fontname='Tajawal')
+        ax.text(0, -0.15, str(int(round(payment_progress * 100))) + ' %', ha='center', va='center', fontsize=40,fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
