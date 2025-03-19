@@ -1201,11 +1201,11 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         last_row_text_frame.text = "Forecast Construction Spend" + str(forecast_construction_spend)
  
-        last_row_text_frame.font.color.rgb = RGBColor(255, 255, 255)  # White text color
-        last_row_text_frame.font.bold = True
-        last_row_text_frame.font.name = "Tajawal"
-        last_row_text_frame.font.size = Pt(11)
-        last_row_text_frame.alignment = PP_ALIGN.CENTER
+        last_row_text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)  # White text color
+        last_row_text_frame.paragraphs[0].font.bold = True
+        last_row_text_frame.paragraphs[0].font.name = "Tajawal"
+        last_row_text_frame.paragraphs[0].font.size = Pt(11)
+        last_row_text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
         
         # Ensure no extra line breaks are added
         last_row_text_frame.word_wrap = True
