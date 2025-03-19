@@ -632,7 +632,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             cell.vertical_anchor = MSO_ANCHOR.MIDDLE  # Vertically center align the text
     
         # Set column widths
-        column_widths = [1486150, 1219005, 1172300, 1391790, 1130715, 1414125, 841825, 1369950, 1273782, 838769]
+        column_widths = [1476831, 1209686, 1162981, 1382471, 1121396, 1404806, 832506, 1360631, 1264463, 922645]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
     
@@ -862,6 +862,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             p.level = 0  # Bullet point level
             p.alignment = PP_ALIGN.LEFT
             p.bullet = True  # Enable bullet points
+            p.bullet_char = '\u2022'  # Set bullet character to a solid circle
         
         # Optionally, set the font name for all paragraphs
         for p in text_frame.paragraphs:
@@ -894,7 +895,6 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.text_frame.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)
         
         shape_11.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
-
 
         # Shape 12: Table
         shape_12 = new_slide.shapes.add_table(3, 2, Inches(5342198 / 914400), Inches(6543794 / 914400), Inches(2134930 / 914400), Inches(1217006 / 914400)).table
@@ -1302,7 +1302,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height = 2355166  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        # new_slide.shapes.add_picture(buf, left, top, width, height)
+        new_slide.shapes.add_picture(buf, left, top, width, height)
         
         # Data for the second donut chart
         cost_to_complete = round(100 - int((payment_progress * 100)))
@@ -1339,7 +1339,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height2 = 2355166
         
         # Add the image to the slide from BytesIO object
-        # new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
+        new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
         
         
         # Define the shape properties to detect
