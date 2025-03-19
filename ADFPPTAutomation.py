@@ -1305,7 +1305,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-                  handlelength=1.5, handleheight=1.5)
+                  handlelength=1, handleheight=1)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
@@ -1344,7 +1344,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-                  handlelength=1.5, handleheight=1.5)
+                  handlelength=1, handleheight=1)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
