@@ -1326,7 +1326,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' + str(int(round(payment_progress * 100))) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=12,fontname='Tajawal')
+        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + ' %', ha='center', va='center', fontsize=20,fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
