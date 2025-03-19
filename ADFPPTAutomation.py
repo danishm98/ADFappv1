@@ -835,13 +835,15 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         text_frame2.paragraphs[0].alignment = PP_ALIGN.CENTER
         text_frame2.paragraphs[0].font.name = 'Tajawal'
         
-        # Shape 11: Table
+       # Shape 11: Table
         shape_11 = new_slide.shapes.add_table(2, 1, Inches(7626125 / 914400), Inches(6543793 / 914400), Inches(4852309 / 914400), Inches(1238901 / 914400)).table
+        
         # Set row heights (30% for row 1 and 70% for row 2)
         total_height = int(Inches(1179842 / 914400))
         shape_11.rows[0].height = int(total_height * 0.26)
         shape_11.rows[1].height = int(total_height * 0.74)
         shape_11.cell(0, 0).text = "Remaining Items"
+        
         # Split the text into lines
         lines = remaining_items.split('\n')
         
@@ -859,16 +861,15 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
             p.level = 0  # Bullet point level
             p.alignment = PP_ALIGN.LEFT
-
+            p.bullet = True  # Enable bullet points
+        
         # Optionally, set the font name for all paragraphs
         for p in text_frame.paragraphs:
             p.font.name = "Tajawal"
-            p.font.color.rgb = RGBColor(0,0,0)
+            p.font.color.rgb = RGBColor(0, 0, 0)
             p.font.size = Pt(13)
             p.alignment = PP_ALIGN.LEFT
-
-
-        #shape_11.cell(1,0).text = remaining_items
+        
         # Set the first row background color to RGBColor(21, 42, 93) with white bold text
         shape_11.cell(0, 0).fill.solid()
         shape_11.cell(0, 0).fill.fore_color.rgb = RGBColor(21, 42, 93)
@@ -877,19 +878,21 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         cell_11_text_frame.paragraphs[0].font.bold = True
         cell_11_text_frame.paragraphs[0].font.size = Pt(13)
         cell_11_text_frame.paragraphs[0].font.name = "Tajawal"
+        shape_11.cell(0, 0).text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Center align the text
+        
         # Set the second row background color to RGBColor(233, 245, 245)
         shape_11.cell(1, 0).fill.solid()
         shape_11.cell(1, 0).fill.fore_color.rgb = RGBColor(233, 245, 245)
-        shape_11.cell(0,0).text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Left align the text
-
+        
+        # Adjust cell margins and text color
         for row in shape_11.rows:
             for cell in row.cells:
-                cell.margin_left = 0
+                cell.margin_left = Inches(0.05)
                 cell.margin_right = 0
                 cell.margin_top = 0
                 cell.margin_bottom = 0
-                cell.text_frame.paragraphs[0].font.color.rgb = RGBColor(0,0,0)
-                
+                cell.text_frame.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)
+        
         shape_11.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
 
