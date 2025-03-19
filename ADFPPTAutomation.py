@@ -1180,9 +1180,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell_text_frame.paragraphs[0].font.name = "Tajawal"
 
                 
-        
         # Set the background color to RGB(29, 88, 137) and text to white bold for the last row
-        # Get the last row cell
         last_row_cell = shape_20.cell(num_rows - 1, 0)
         last_row_cell.fill.solid()
         last_row_cell.fill.fore_color.rgb = RGBColor(29, 88, 137)
@@ -1190,7 +1188,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Clear any existing paragraphs
         last_row_text_frame.clear()
-
+        
         # Add the first paragraph
         p1 = last_row_text_frame.add_paragraph()
         p1.text = "Forecast Construction Spend"
@@ -1211,13 +1209,11 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Ensure no extra line breaks are added
         last_row_text_frame.word_wrap = True
-
+        
         # Manually clear the first encountered line break from the text/cell afterward
         for paragraph in last_row_text_frame.paragraphs:
-            if '\n' in paragraph.text:
-                paragraph.text = paragraph.text.replace('\n', ' ', 1)
-                break
-        p1.text = p1.text.lstrip('\n')
+            paragraph.text = paragraph.text.replace('\n', ' ')
+        #p1.text = p1.text.lstrip('\n')
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
@@ -1305,7 +1301,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-                  handlelength=1, handleheight=1)
+                  handlelength=0.8, handleheight=0.8)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
@@ -1326,7 +1322,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height = 2355166  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        # new_slide.shapes.add_picture(buf, left, top, width, height)
+        new_slide.shapes.add_picture(buf, left, top, width, height)
         
         # Data for the second donut chart--------------------------------------------------------------------------------------------------------
         cost_to_complete = int(round(100 - (payment_progress * 100)))
@@ -1344,7 +1340,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-                  handlelength=1, handleheight=1)
+                  handlelength=0.8, handleheight=0.8)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
