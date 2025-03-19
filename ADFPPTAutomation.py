@@ -1125,7 +1125,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         for row in shape_20.rows:
             for cell in row.cells:
-                cell.margin_left = 2
+                cell.margin_left = Pt(0.5)
                 cell.margin_right = 0
                 cell.margin_top = 0
                 cell.margin_bottom = 0
