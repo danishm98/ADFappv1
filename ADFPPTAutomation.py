@@ -1199,7 +1199,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         last_row_text_frame.clear()
         
         
-        last_row_text_frame.text = "Forecast Construction Spend" + str(forecast_construction_spend)
+        last_row_text_frame.text = "Forecast Construction Spend     " + str(forecast_construction_spend)
  
         last_row_text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)  # White text color
         last_row_text_frame.paragraphs[0].font.bold = True
