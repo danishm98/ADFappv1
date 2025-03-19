@@ -880,6 +880,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         cell_11_text_frame.paragraphs[0].font.size = Pt(13)
         cell_11_text_frame.paragraphs[0].font.name = "Tajawal"
         shape_11.cell(0, 0).text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Center align the text
+        shape_11.cell(0, 0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         
         # Set the second row background color to RGBColor(233, 245, 245)
         shape_11.cell(1, 0).fill.solid()
