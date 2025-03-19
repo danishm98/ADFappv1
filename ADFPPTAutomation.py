@@ -1217,6 +1217,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             if '\n' in paragraph.text:
                 paragraph.text = paragraph.text.replace('\n', ' ', 1)
                 break
+        p1.text = p1.text.lstrip('\n')
         
         # Adjust row heights to ensure the table fits within the specified height
         total_height = shape_20_height
@@ -1289,7 +1290,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 
 
-            # Data for the first donut chart----------------------------------------------------------------------------------------------------
+         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
         labels = ['Progress', 'Remaining']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
@@ -1302,16 +1303,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
                                           pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
-        # Add legends at the bottom of the chart in one line without borders or shadows and make them bigger
+        # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-          handlelength=1.5, handleheight=1.5)
+                  handlelength=1.5, handleheight=1.5)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
         ax.text(0, 0, 'Construction\n Progress:\n', ha='center', va='center', fontsize=30, fontname='Tajawal')
-        ax.text(0, -0.2, str(int(round(construction_progress * 100))) + '%', ha='center', va='center', fontsize=40,fontname='Tajawal')
+        ax.text(0, -0.2, str(int(round(construction_progress * 100))) + '%', ha='center', va='center', fontsize=40, fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf = io.BytesIO()
@@ -1325,10 +1326,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height = 2355166  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        new_slide.shapes.add_picture(buf, left, top, width, height)
+        # new_slide.shapes.add_picture(buf, left, top, width, height)
         
         # Data for the second donut chart--------------------------------------------------------------------------------------------------------
-        cost_to_complete = round(100 - int((payment_progress * 100)))
+        cost_to_complete = int(round(100 - (payment_progress * 100)))
         sizes = [int(round(payment_progress * 100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
@@ -1341,15 +1342,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
                                           pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
-        # Add legends at the bottom of the chart in one line without borders or shadows and make them bigger
-        ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25)
+        # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
+        ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
+                  handlelength=1.5, handleheight=1.5)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=30,fontname='Tajawal')
-        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + '%', ha='center', va='center', fontsize=40,fontname='Tajawal')
+        ax.text(0, 0, 'Payment\n Progress:\n', ha='center', va='center', fontsize=30, fontname='Tajawal')
+        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + '%', ha='center', va='center', fontsize=40, fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
