@@ -1217,14 +1217,14 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             shape_20.rows[i].height = current_row_height
         
         # Adjust the last row height to be 30% larger
-        new_last_row_height = int(current_row_height * 1.3)
-        height_difference = new_last_row_height - current_row_height
-        new_other_row_height = int((total_height - new_last_row_height) / (num_rows - 1))
+        #new_last_row_height = int(current_row_height * 1.3)
+        #height_difference = new_last_row_height - current_row_height
+        #new_other_row_height = int((total_height - new_last_row_height) / (num_rows - 1))
         
-        for i in range(num_rows - 1):
-            shape_20.rows[i].height = new_other_row_height
+        #for i in range(num_rows - 1):
+        #    shape_20.rows[i].height = new_other_row_height
         
-        shape_20.rows[num_rows - 1].height = new_last_row_height
+        #shape_20.rows[num_rows - 1].height = new_last_row_height
         
         # Shape 21: Table
         # Shape 21: Table
@@ -1299,7 +1299,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Construction\n Progress:\n' + str(int(round(construction_progress * 100))) + ' %', ha='center', va='center', fontsize=25)
+        ax.text(0, 0, 'Construction\n Progress:\n' + str(int(round(construction_progress * 100))) + ' %', ha='center', va='center', fontsize=30, fontname='Tajawal')
+        ax.text(0, -0.2, str(int(round(construction_progress * 100))) + '%', ha='center', va='center', fontsize=40,fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf = io.BytesIO()
@@ -1336,8 +1337,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ax.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=25,fontname='Tajawal')
-        ax.text(0, -0.15, str(int(round(payment_progress * 100))) + ' %', ha='center', va='center', fontsize=40,fontname='Tajawal')
+        ax.text(0, 0, 'Payment\n Progress:\n' , ha='center', va='center', fontsize=30,fontname='Tajawal')
+        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + '%', ha='center', va='center', fontsize=40,fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
