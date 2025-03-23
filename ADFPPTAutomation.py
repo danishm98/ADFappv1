@@ -799,7 +799,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.cell(2,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
         
-        project_config = str(project_config if project_config is not None else 0)
+        project_config = str(project_config if project_config is not None else "")
         table2.table.cell(3, 2).text = project_config
         table2.table.cell(3,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(3,2).text_frame.paragraphs[0].font.name = 'Tajawal'
