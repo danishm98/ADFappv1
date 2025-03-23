@@ -1401,10 +1401,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         left = 7884225
         top = 2964434
         width = 2245675
-        height = 2355166  # Adjusted height to maintain aspect ratio
+        height = 2551024  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        # new_slide.shapes.add_picture(buf, left, top, width, height)
+        new_slide.shapes.add_picture(buf, left, top, width, height)
         
         # If payment_progress is zero, make cost_to_complete 100
         if payment_progress == 0:
@@ -1445,10 +1445,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         left2 = 10129900
         top2 = 2970939
         width2 = 2639875
-        height2 = 2355166
+        height2 = 2551024
         
         # Add the image to the slide from BytesIO object
-        # new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
+        new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
         #-------------------------------------------------------------------------------------------------------------------------------------
         
         # Define the shape properties to detect
