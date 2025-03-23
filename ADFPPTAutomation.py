@@ -1361,6 +1361,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
+        for f in sizes:
+            print(f"Sizes:{f}")
         labels = ['Progress', 'Remaining']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
         
