@@ -1335,9 +1335,13 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Set the text color to white for the first row
         shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
+        ####################-====================================================================================DONUT 1
 
-
-         # Data for the first donut chart
+        construction_progress = construction_progress if construction_progress else 0
+        remaining = remaining if remaining else 0
+        payment_progress = payment_progress if payment_progress else 0
+        
+        # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
         labels = ['Progress', 'Remaining']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
@@ -1375,7 +1379,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Add the image to the slide from BytesIO object
         new_slide.shapes.add_picture(buf, left, top, width, height)
         
-        # Data for the second donut chart--------------------------------------------------------------------------------------------------------
+        # Data for the second donut chart
         cost_to_complete = int(round(100 - (payment_progress * 100)))
         sizes = [int(round(payment_progress * 100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
