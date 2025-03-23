@@ -821,7 +821,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             # Add each line as a bullet point
             for line in lines:
                 p = text_frame.add_paragraph()
-                p.text = line
+                p.text = f"- {line}"
                 p.font.size = Pt(10)
                 p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
                 p.level = 0  # Bullet point level
@@ -934,7 +934,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             # Add each line as a bullet point
             for line in lines:
                 p = text_frame.add_paragraph()
-                p.text = line
+                p.text = f"- {line}"
                 p.font.size = Pt(13)
                 p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
                 p.level = 0  # Bullet point level
@@ -1365,7 +1365,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             # Add each line as a bullet point without introducing extra line breaks
             for line in lines:
                 p = text_frame.add_paragraph()
-                p.text = line.strip()  # Strip any leading/trailing whitespace
+                #p.text = line.strip()  # Strip any leading/trailing whitespace
+                p.text = f"- {line}"
                 p.font.size = Pt(13)
                 p.level = 0  # Bullet point level
                 p.alignment = PP_ALIGN.LEFT
