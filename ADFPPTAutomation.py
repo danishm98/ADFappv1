@@ -652,11 +652,11 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
         if isinstance(cost_m2, str) or cost_m2 == "":
             if cost_m2.startswith("#"):
-                table1.table.cell(1, 9).text =  " SAR / m2"
+                table1.table.cell(1, 9).text =  " SAR / m²"
             else:
-                table1.table.cell(1, 9).text = cost_m2 + " SAR / m2"    
+                table1.table.cell(1, 9).text = cost_m2 + " SAR / m²"    
         else:
-            table1.table.cell(1, 9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
+            table1.table.cell(1, 9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m²"
         
     
         # Style the first row with the given color and white, bold text
