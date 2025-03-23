@@ -1303,8 +1303,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_21.rows[0].height = int(total_height * 0.3)
         shape_21.rows[1].height = int(total_height * 0.7)
         
-        # Split the text into lines
-        lines = risk_assessment.split('\n')
+        if risk_assessment:
+            lines = risk_assessment.split('\n')
+        else:
+            lines = []
         
         # Get the text frame of the cell
         text_frame = shape_21.cell(1, 0).text_frame
@@ -1312,20 +1314,23 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Clear any existing paragraphs
         text_frame.clear()
         
-        # Add each line as a bullet point without introducing extra line breaks
-        for line in lines:
-            p = text_frame.add_paragraph()
-            p.text = line.strip()  # Strip any leading/trailing whitespace
-            p.font.size = Pt(13)
-            p.level = 0  # Bullet point level
-            p.alignment = PP_ALIGN.LEFT
+        if lines:
+            # Add each line as a bullet point without introducing extra line breaks
+            for line in lines:
+                p = text_frame.add_paragraph()
+                p.text = line.strip()  # Strip any leading/trailing whitespace
+                p.font.size = Pt(13)
+                p.level = 0  # Bullet point level
+                p.alignment = PP_ALIGN.LEFT
         
-        # Optionally, set the font name for all paragraphs
-        for p in text_frame.paragraphs:
-            p.font.name = "Tajawal"
-            p.font.color.rgb = RGBColor(0, 0, 0)
-            p.font.size = Pt(13)
-            p.alignment = PP_ALIGN.LEFT
+            # Optionally, set the font name for all paragraphs
+            for p in text_frame.paragraphs:
+                p.font.name = "Tajawal"
+                p.font.color.rgb = RGBColor(0, 0, 0)
+                p.font.size = Pt(13)
+                p.alignment = PP_ALIGN.LEFT
+        else:
+            text_frame.text = ""
         
         # Set the text color to white for the first row
         shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
