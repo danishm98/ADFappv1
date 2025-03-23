@@ -612,8 +612,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,0).text_frame.paragraphs[0].font.bold = True
         table1.table.cell(1,0).text_frame.paragraphs[0].font.name = 'Tajawal'
         table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
-        table1.table.cell(1,1).text = project_status
-        table1.table.cell(1,2).text = design_status
+        table1.table.cell(1,1).text = str(project_status)
+        table1.table.cell(1,2).text = str(design_status)
 
         
         if isinstance(construction_start_date, datetime):
