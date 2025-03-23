@@ -770,8 +770,9 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
         
         # Check if built_up_area is a string or blank, and output it as is if it is
-        if isinstance(built_up_area, str) or built_up_area == "":
-            table2.table.cell(2, 2).text = built_up_area
+# Check if built_up_area is a string, blank, or None, and output it as is if it is
+        if isinstance(built_up_area, str) or built_up_area == "" or built_up_area is None:
+            table2.table.cell(2, 2).text = built_up_area if built_up_area else ""
         else:
             table2.table.cell(2, 2).text = str("{:,}".format(built_up_area)) + ' m2'
         table2.table.cell(2,2).text_frame.paragraphs[0].font.size = Pt(10)
