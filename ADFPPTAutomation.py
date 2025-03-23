@@ -613,9 +613,24 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
         table1.table.cell(1,1).text = project_status
         table1.table.cell(1,2).text = design_status
-        table1.table.cell(1,3).text = str(construction_start_date.strftime("%d %b %Y"))
-        table1.table.cell(1,4).text = str(target_completion_date.strftime("%d %b %Y"))
-        table1.table.cell(1,5).text = str(forecast_completion_date.strftime("%d %b %Y"))
+
+        
+        if isinstance(construction_start_date, datetime):
+            table1.table.cell(1, 3).text = str(construction_start_date.strftime("%d %b %Y"))
+        else:
+            table1.table.cell(1, 3).text = str(construction_start_date)
+        
+        if isinstance(target_completion_date, datetime):
+            table1.table.cell(1, 4).text = str(target_completion_date.strftime("%d %b %Y"))
+        else:
+            table1.table.cell(1, 4).text = str(target_completion_date)
+        
+        if isinstance(forecast_completion_date, datetime):
+            table1.table.cell(1, 5).text = str(forecast_completion_date.strftime("%d %b %Y"))
+        else:
+            table1.table.cell(1, 5).text = str(forecast_completion_date)
+
+        
         table1.table.cell(1, 6).text = str(f"{overall_progress * 100:.0f}%")
         table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
