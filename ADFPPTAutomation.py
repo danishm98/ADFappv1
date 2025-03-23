@@ -1337,10 +1337,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
         ####################-====================================================================================DONUT 1
 
-        construction_progress = construction_progress if construction_progress is not None else 0
-        remaining = remaining if remaining is not None else 0
-        payment_progress = payment_progress if payment_progress is not None else 0
-
+        # Ensure variables are not None, blank, or NaN
+        construction_progress = construction_progress if construction_progress is not None and not math.isnan(construction_progress) else 0
+        remaining = remaining if remaining is not None and not math.isnan(remaining) else 0
+        payment_progress = payment_progress if payment_progress is not None and not math.isnan(payment_progress) else 0
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
