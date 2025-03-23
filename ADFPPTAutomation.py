@@ -1341,7 +1341,15 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
        # Ensure variables are not None, blank, or NaN
         print(f"Construction Progress value:{construction_progress}")
         
-        # Ensure variables are defined and not None, blank, or NaN
+        import matplotlib.pyplot as plt
+        import io
+        import math
+        
+        # Example values for construction_progress, remaining, and payment_progress
+        construction_progress = None
+        remaining = None
+        payment_progress = None
+        
         # Ensure variables are not None, blank, NaN, or Excel errors
         if construction_progress is None or math.isnan(construction_progress) or (isinstance(construction_progress, str) and construction_progress.startswith("#")):
             construction_progress = 0
@@ -1351,8 +1359,6 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         if payment_progress is None or math.isnan(payment_progress) or (isinstance(payment_progress, str) and payment_progress.startswith("#")):
             payment_progress = 0
-
-        print(f"Construction Progress value 2:{construction_progress}")
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
