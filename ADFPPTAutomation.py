@@ -45,6 +45,7 @@ from pptx.enum.dml import MSO_FILL
 from datetime import datetime
 import matplotlib.pyplot as plt
 import zipfile
+import math
 
 def count_images_in_folder(folder_path):
     image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
