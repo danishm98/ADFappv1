@@ -777,8 +777,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.cell(3,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
         
-        #table2.table.cell(4,2).text = space_programme
-        lines = space_programme.split('\n')
+        if space_programme:
+            lines = space_programme.split('\n')
+        else:
+            lines = []
         
         # Get the text frame of the cell
         text_frame = table2.table.cell(4, 2).text_frame
@@ -786,21 +788,24 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Clear any existing paragraphs
         text_frame.clear()
         
-        # Add each line as a bullet point
-        for line in lines:
-            p = text_frame.add_paragraph()
-            p.text = line
-            p.font.size = Pt(10)
-            p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
-            p.level = 0  # Bullet point level
-            p.alignment = PP_ALIGN.LEFT
-     
-        # Optionally, set the font name for all paragraphs
-        for p in text_frame.paragraphs:
-            p.font.name = "Tajawal"
-            p.font.color.rgb = RGBColor(0,0,0)
-            p.font.size = Pt(10)
-            p.alignment = PP_ALIGN.LEFT
+        if lines:
+            # Add each line as a bullet point
+            for line in lines:
+                p = text_frame.add_paragraph()
+                p.text = line
+                p.font.size = Pt(10)
+                p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
+                p.level = 0  # Bullet point level
+                p.alignment = PP_ALIGN.LEFT
+        
+            # Optionally, set the font name for all paragraphs
+            for p in text_frame.paragraphs:
+                p.font.name = "Tajawal"
+                p.font.color.rgb = RGBColor(0, 0, 0)
+                p.font.size = Pt(10)
+                p.alignment = PP_ALIGN.LEFT
+        else:
+            text_frame.text = ""
             
         table2.table.cell(4,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(4,2).text_frame.paragraphs[0].font.name = 'Tajawal'
