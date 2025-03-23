@@ -355,7 +355,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 construction_progress_col = idx
             elif "Remaining Progress" in cell_value:
                 remaining_col = idx
-            elif "Project Config" in cell_value:
+            elif "Project Configuration" in cell_value:
                 project_config_col = idx
             elif "Space Programme" in cell_value:
                 space_programme_col = idx
