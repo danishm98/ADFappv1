@@ -612,8 +612,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,0).text_frame.paragraphs[0].font.bold = True
         table1.table.cell(1,0).text_frame.paragraphs[0].font.name = 'Tajawal'
         table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
-        table1.table.cell(1,1).text = str(project_status)
-        table1.table.cell(1,2).text = str(design_status)
+        table1.table.cell(1, 1).text = str(project_status) if project_status is not None else ""
+        table1.table.cell(1, 2).text = str(design_status) if design_status is not None else ""
 
         
         
@@ -640,14 +640,21 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             table1.table.cell(1, 5).text = str(forecast_completion_date)
 
         
-        if overall_progress and isinstance(overall_progress, (int, float)):
+        if overall_progress is None:
+            table1.table.cell(1, 6).text = ""
+        elif isinstance(overall_progress, (int, float)):
             table1.table.cell(1, 6).text = f"{overall_progress * 100:.0f}%"
         else:
             table1.table.cell(1, 6).text = str(overall_progress)
+
+        
         table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
         if isinstance(cost_m2, str) or cost_m2 == "":
-            table1.table.cell(1, 9).text = cost_m2
+            if cost_m2.startswith("#"):
+                table1.table.cell(1, 9).text =  " SAR / m2"
+            else:
+                table1.table.cell(1, 9).text = cost_m2 + " SAR / m2"    
         else:
             table1.table.cell(1, 9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
         
@@ -995,8 +1002,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         daily_manpower = str(daily_manpower if daily_manpower is not None else 0)
         daily_machinery = str(daily_machinery if daily_machinery is not None else 0)
         
-        shape_12.cell(1, 0).text = daily_manpower
-        shape_12.cell(1, 1).text = daily_machinery
+        #shape_12.cell(1, 0).text = daily_manpower
+        #shape_12.cell(1, 1).text = daily_machinery
         
         shape_12.cell(2, 0).text = str(daily_manpower)
         shape_12.cell(2, 1).text = str(daily_machinery)
@@ -1173,7 +1180,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             if formatted_value:
                 values.append("VAT")
                 values2.append(formatted_value)
-    
+
+        if not values:
+            values.extend([
+                "Design & Supervision", "Civil, Structural", "FF&E", "Services", "Features", 
+                "External Works", "H&S Landscaping", "Hardscape", "Softscape", 
+                "Inf. Utility Building", "Inf. Networks", "Preliminaries", 
+                "Client Direct Procurement", "Contingency", "Variation/Claims", "VAT"
+            ])
+            values2.extend([""] * 16)
+        
         #if current_project_cost != "" and current_project_cost != 0:
         #    values.append("Current Project Cost")
         forecast_construction_spend = str(format_number(forecast_construction_spend))
