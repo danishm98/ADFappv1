@@ -107,7 +107,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             break
     
     if include_in_ppt_idx is None:
-        st.error(f"Could not find the header row for data in the 'CM' tab")
+        st.error(f"Could not find the header row for data in the 'CM' tab. Make sure we are following the agreed format.")
         st.stop()
         #raise ValueError("Could not find the header row for data in the 'CM' tab")
     
@@ -159,6 +159,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     daily_machinery_col = None
     remaining_items_col = None
     risk_assessment_col = None
+
+    project_name_col_sheet2 = None
     
     project_name = ""
     include_in_ppt = ""
@@ -187,7 +189,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     contigency = ""
     variation = ""
     vat = ""
-    
+
+    project_name_PM = ""
     current_project_cost = ""
     project_status = ""
     design_status = ""
@@ -323,8 +326,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 slides_count_PM += 1
 
     #print(f"Number of data (project) rows in PM tab: {slides_count_PM}")
-    if slides_count_PM == 0 or slides_count != slides_count_PM:
-        st.error(f"Either the Excel file's PM tab is missing or hidden project rows, or there's a mismatch in number of projects in CM & PM tabs. Please fix, re-upload the Excel file and try again")
+    if slides_count_PM == 0: #or slides_count != slides_count_PM:
+        st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
         st.stop()
 
     for idx, cell in enumerate(header_row_pm): #capture data for relevant, non-blank rows
@@ -336,6 +339,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             #    current_project_cost_col = idx
             if "Project Status" in cell_value:
                 project_status_col = idx
+            elif "Project Name" in cell_value:
+                project_name_col_sheet2 = idx
             elif "Design Status" in cell_value:
                 design_status_col = idx
             elif "Construction Start Date" in cell_value:
@@ -378,11 +383,26 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
 
     ######################### -------------------- PM Data array
+    #data_rows_PM = []
+    #for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
+    #    if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
+    #            data_rows_PM.append(row)
+
+    # Extract 'Project Name' values from data_rows
+    project_names = {row[project_name_col] for row in data_rows}
+    
+    # Populate data_rows_PM with matching rows from sheet2
     data_rows_PM = []
     for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
         if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
+            if row[project_name_col_sheet2] in project_names:
                 data_rows_PM.append(row)
+
     
+    if len(data_rows) != len(data_rows_PM):
+        st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
+        st.stop()
+        
     ##########---------------- FOR LOOP dynamic ------------------------------------###########
     ##########-----all code below in this function needs to be dynamic and looped------#########
     
