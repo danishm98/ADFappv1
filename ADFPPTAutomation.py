@@ -1339,26 +1339,25 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         ####################-====================================================================================DONUT 1
 
        # Ensure variables are not None, blank, or NaN
-        print(f"Construction Progress value:{construction_progress}")
+        #print(f"Construction Progress value:{construction_progress}")
         
         import matplotlib.pyplot as plt
         import io
         import math
         
-        # Example values for construction_progress, remaining, and payment_progress
-        construction_progress = None
-        remaining = None
-        payment_progress = None
-        
         # Ensure variables are not None, blank, NaN, or Excel errors
-        if construction_progress is None or math.isnan(construction_progress) or (isinstance(construction_progress, str) and construction_progress.startswith("#")):
+        if construction_progress is None or (isinstance(construction_progress, float) and math.isnan(construction_progress)) or (isinstance(construction_progress, str) and construction_progress.startswith("#")):
             construction_progress = 0
         
-        if remaining is None or math.isnan(remaining) or (isinstance(remaining, str) and remaining.startswith("#")):
+        if remaining is None or (isinstance(remaining, float) and math.isnan(remaining)) or (isinstance(remaining, str) and remaining.startswith("#")):
             remaining = 0
         
-        if payment_progress is None or math.isnan(payment_progress) or (isinstance(payment_progress, str) and payment_progress.startswith("#")):
+        if payment_progress is None or (isinstance(payment_progress, float) and math.isnan(payment_progress)) or (isinstance(payment_progress, str) and payment_progress.startswith("#")):
             payment_progress = 0
+        
+        print(f"2Construction Progress value:{construction_progress}")
+        print(f"2Remaining Progress value:{remaining}")
+        print(f"2Payment Progress value:{payment_progress}")
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
@@ -1400,6 +1399,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Data for the second donut chart
         cost_to_complete = int(round(100 - (payment_progress * 100)))
+        print(f"2Cost to Complete value:{cost_to_complete}")
         sizes = [int(round(payment_progress * 100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
