@@ -774,10 +774,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.rows[3].height = 281850
         table2.table.rows[4].height = 1121475  # Adjusted height for merged row
 
-        if site_area and isinstance(site_area, (int, float)):
-            table2.table.cell(1, 2).text = "{:,}".format(site_area) + ' m2'
+        if site_area is None:
+            table2.table.cell(1, 2).text = " m²"
+        elif isinstance(site_area, (int, float)):
+            table2.table.cell(1, 2).text = "{:,}".format(site_area) + ' m²'
         else:
-            table2.table.cell(1, 2).text = str(site_area) + ' m2'
+            table2.table.cell(1, 2).text = str(site_area) + ' m²'
         #print(f"site area:{site_area}")
         table2.table.cell(1,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(1,2).text_frame.paragraphs[0].font.name = 'Tajawal'
@@ -786,10 +788,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Check if built_up_area is a string or blank, and output it as is if it is
 # Check if built_up_area is a string, blank, or None, and output it as is if it is
-        if isinstance(built_up_area, str) or built_up_area == "" or built_up_area is None:
-            table2.table.cell(2, 2).text = built_up_area if built_up_area else ""
+        if built_up_area is None:
+            table2.table.cell(2, 2).text = " m²"
+        elif isinstance(built_up_area, (int, float)):
+            table2.table.cell(2, 2).text = "{:,}".format(built_up_area) + ' m²'
         else:
-            table2.table.cell(2, 2).text = str("{:,}".format(built_up_area)) + ' m2'
+            table2.table.cell(2, 2).text = str(built_up_area) + ' m²'
         table2.table.cell(2,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(2,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(2,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
