@@ -1345,6 +1345,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         import io
         import math
         
+        
         # Ensure variables are not None, blank, NaN, or Excel errors
         if construction_progress is None or (isinstance(construction_progress, float) and math.isnan(construction_progress)) or (isinstance(construction_progress, str) and construction_progress.startswith("#")):
             construction_progress = 0
@@ -1355,14 +1356,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         if payment_progress is None or (isinstance(payment_progress, float) and math.isnan(payment_progress)) or (isinstance(payment_progress, str) and payment_progress.startswith("#")):
             payment_progress = 0
         
-        print(f"2Construction Progress value:{construction_progress}")
-        print(f"2Remaining Progress value:{remaining}")
-        print(f"2Payment Progress value:{payment_progress}")
+        # If construction_progress is zero, make remaining 100
+        if construction_progress == 0:
+            remaining = 100
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
-        for f in sizes:
-            print(f"Sizes:{f}")
         labels = ['Progress', 'Remaining']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
         
@@ -1397,33 +1396,37 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height = 2355166  # Adjusted height to maintain aspect ratio
         
         # Add the image to the slide from BytesIO object
-        new_slide.shapes.add_picture(buf, left, top, width, height)
+        # new_slide.shapes.add_picture(buf, left, top, width, height)
+        
+        # If payment_progress is zero, make cost_to_complete 100
+        if payment_progress == 0:
+            cost_to_complete = 100
+        else:
+            cost_to_complete = int(round(100 - (payment_progress * 100)))
         
         # Data for the second donut chart
-        cost_to_complete = int(round(100 - (payment_progress * 100)))
-        print(f"2Cost to Complete value:{cost_to_complete}")
         sizes = [int(round(payment_progress * 100)), cost_to_complete]
         labels = ['Paid to Date', 'Cost to Complete']
         colors = ['#0aa57f', '#1d5889']  # RGB: (10, 165, 127) and (29, 88, 137)
         
         # Create a figure and axis with equal aspect ratio to avoid squeezing
-        fig, ax = plt.subplots(figsize=(8, 8))
+        fig2, ax2 = plt.subplots(figsize=(8, 8))
         
         # Create the donut chart with thicker white borders for slices
-        wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
-                                          startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
-                                          pctdistance=0.85, textprops=dict(color='white', fontsize=28))
+        wedges2, texts2, autotexts2 = ax2.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
+                                              startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
+                                              pctdistance=0.85, textprops=dict(color='white', fontsize=28))
         
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
-        ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
-                  handlelength=0.8, handleheight=0.8)
+        ax2.legend(wedges2, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
+                   handlelength=0.8, handleheight=0.8)
         
         # Equal aspect ratio ensures that pie is drawn as a circle
-        ax.axis('equal')
+        ax2.axis('equal')
         
         # Insert dynamic data into the center without borders
-        ax.text(0, 0, 'Payment\n Progress:\n', ha='center', va='center', fontsize=30, fontname='Tajawal')
-        ax.text(0, -0.2, str(int(round(payment_progress * 100))) + '%', ha='center', va='center', fontsize=40, fontname='Tajawal')
+        ax2.text(0, 0, 'Payment\n Progress:\n', ha='center', va='center', fontsize=30, fontname='Tajawal')
+        ax2.text(0, -0.2, str(int(round(payment_progress * 100))) + '%', ha='center', va='center', fontsize=40, fontname='Tajawal')
         
         # Save the plot to a BytesIO object
         buf2 = io.BytesIO()
@@ -1437,7 +1440,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         height2 = 2355166
         
         # Add the image to the slide from BytesIO object
-        new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
+        # new_slide.shapes.add_picture(buf2, left2, top2, width2, height2)
         #-------------------------------------------------------------------------------------------------------------------------------------
         
         # Define the shape properties to detect
