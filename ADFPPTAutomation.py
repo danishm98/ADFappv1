@@ -638,7 +638,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             table1.table.cell(1, 6).text = str(overall_progress)
         table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
-        table1.table.cell(1,9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
+        if isinstance(cost_m2, str) or cost_m2 == "":
+            table1.table.cell(1, 9).text = cost_m2
+        else:
+            table1.table.cell(1, 9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
         
     
         # Style the first row with the given color and white, bold text
