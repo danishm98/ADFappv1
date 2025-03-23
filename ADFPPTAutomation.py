@@ -616,18 +616,26 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table1.table.cell(1,2).text = str(design_status)
 
         
-        if isinstance(construction_start_date, datetime):
-            table1.table.cell(1, 3).text = str(construction_start_date.strftime("%d %b %Y"))
+        
+        
+        if target_completion_date is None:
+            table1.table.cell(1, 4).text = ""
+        elif isinstance(target_completion_date, datetime):
+            table1.table.cell(1, 4).text = target_completion_date.strftime("%d %b %Y")
+        else:
+            table1.table.cell(1, 4).text = str(target_completion_date)
+
+        if construction_start_date is None:
+            table1.table.cell(1, 3).text = ""
+        elif isinstance(construction_start_date, datetime):
+            table1.table.cell(1, 3).text = construction_start_date.strftime("%d %b %Y")
         else:
             table1.table.cell(1, 3).text = str(construction_start_date)
         
-        if isinstance(target_completion_date, datetime):
-            table1.table.cell(1, 4).text = str(target_completion_date.strftime("%d %b %Y"))
-        else:
-            table1.table.cell(1, 4).text = str(target_completion_date)
-        
-        if isinstance(forecast_completion_date, datetime):
-            table1.table.cell(1, 5).text = str(forecast_completion_date.strftime("%d %b %Y"))
+        if forecast_completion_date is None:
+            table1.table.cell(1, 5).text = ""
+        elif isinstance(forecast_completion_date, datetime):
+            table1.table.cell(1, 5).text = forecast_completion_date.strftime("%d %b %Y")
         else:
             table1.table.cell(1, 5).text = str(forecast_completion_date)
 
@@ -780,7 +788,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.cell(2,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
         
-        table2.table.cell(3,2).text = str(project_config)
+        project_config = str(project_config if project_config is not None else 0)
+        table2.table.cell(3, 2).text = project_config
         table2.table.cell(3,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(3,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(3,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
@@ -981,8 +990,17 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Insert the values "Daily Manpower" and "Daily Machinery" in the second row with black bold point 10.5 text
         shape_12.cell(1, 0).text = "Daily Manpower"
         shape_12.cell(1, 1).text = "Daily Machinery"
-        shape_12.cell(2,0).text = str(daily_manpower)
-        shape_12.cell(2,1).text = str(daily_machinery)
+        
+        # Check if daily_manpower and daily_machinery are None, and make them zero if they are
+        daily_manpower = str(daily_manpower if daily_manpower is not None else 0)
+        daily_machinery = str(daily_machinery if daily_machinery is not None else 0)
+        
+        shape_12.cell(1, 0).text = daily_manpower
+        shape_12.cell(1, 1).text = daily_machinery
+        
+        shape_12.cell(2, 0).text = str(daily_manpower)
+        shape_12.cell(2, 1).text = str(daily_machinery)
+
         shape_12.cell(2, 0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         shape_12.cell(2, 1).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         cell_12_text_frame_1 = shape_12.cell(1, 0).text_frame
