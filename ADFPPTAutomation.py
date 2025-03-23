@@ -631,7 +631,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             table1.table.cell(1, 5).text = str(forecast_completion_date)
 
         
-        table1.table.cell(1, 6).text = str(f"{overall_progress * 100:.0f}%")
+        if overall_progress and isinstance(overall_progress, (int, float)):
+            table1.table.cell(1, 6).text = f"{overall_progress * 100:.0f}%"
+        else:
+            table1.table.cell(1, 6).text = str(overall_progress)
         table1.table.cell(1,7).text = "SAR " + str(format_number(current_project_cost))
         table1.table.cell(1,8).text = "SAR " + str(format_number(forecast_to_complete))
         table1.table.cell(1,9).text = str("{:,}".format((round(cost_m2)))) + " SAR / m2"
