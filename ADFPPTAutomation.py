@@ -756,7 +756,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         cell6 = table2.table.cell(4, 1)
         cell5.merge(cell6)  # Merge cells in row 5, columns 1 and 2
         cell5.text_frame.text = "Space Programme"  # Add text
-        cell5.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER  # Left align the text
+        cell5.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
         cell5.text_frame.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)  # Black text
         cell5.text_frame.paragraphs[0].font.size = Pt(10)  # Set font size to Pt(12)
         cell5.text_frame.paragraphs[0].font.bold = True  # Bold text
