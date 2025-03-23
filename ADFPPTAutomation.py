@@ -1351,6 +1351,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         if payment_progress is None or math.isnan(payment_progress) or (isinstance(payment_progress, str) and payment_progress.startswith("#")):
             payment_progress = 0
+
+        print(f"Construction Progress value 2:{construction_progress}")
         
         # Data for the first donut chart
         sizes = [int(round(construction_progress * 100)), int(round(remaining * 100))]
