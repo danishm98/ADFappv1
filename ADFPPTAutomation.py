@@ -755,7 +755,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.rows[3].height = 281850
         table2.table.rows[4].height = 1121475  # Adjusted height for merged row
 
-        table2.table.cell(1,2).text = str("{:,}".format(site_area)) + ' m2'
+        if site_area and isinstance(site_area, (int, float)):
+            table2.table.cell(1, 2).text = "{:,}".format(site_area) + ' m2'
+        else:
+            table2.table.cell(1, 2).text = str(site_area) + ' m2'
         #print(f"site area:{site_area}")
         table2.table.cell(1,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(1,2).text_frame.paragraphs[0].font.name = 'Tajawal'
