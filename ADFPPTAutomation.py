@@ -997,6 +997,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         shape_11.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
+        shape_11.cell(0,0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        
         # Shape 12: Table
         shape_12 = new_slide.shapes.add_table(3, 2, Inches(5342198 / 914400), Inches(6543794 / 914400), Inches(2134930 / 914400), Inches(1217006 / 914400)).table
         shape_12.cell(0, 0).text = "Estimated Total Required Avg. Daily Resources"
@@ -1078,9 +1080,17 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     #p._pPr.set('algn', 'l')
                     p._pPr.set('rtl', '0')
 
+        shape_12.cell(2, 0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        shape_12.cell(2, 1).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
 
                 
-                
+        for paragraph in shape_12.cell(2, 0).text_frame.paragraphs:
+            paragraph.alignment = PP_ALIGN.CENTER
+            paragraph._pPr.set('rtl', '0')
+        
+        for paragraph in shape_12.cell(2, 1).text_frame.paragraphs:
+            paragraph.alignment = PP_ALIGN.CENTER
+            paragraph._pPr.set('rtl', '0')
         
         # Shape 13: Table
         shape_13 = new_slide.shapes.add_table(1, 2, Inches(5333250 / 914400), Inches(2673352 / 914400), Inches(2362950 / 914400), Inches(365760 / 914400)).table
