@@ -699,7 +699,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
         for row in table1.table.rows:
             for cell in row.cells:
-                for p in text_frame.paragraphs:
+                for p in cell.text_frame.paragraphs:
                     p._pPr.set('algn', 'l')
                     p._pPr.set('rtl', '0')
         
