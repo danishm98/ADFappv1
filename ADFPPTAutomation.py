@@ -850,6 +850,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.cell(4,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(4,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
+
+        for row in table2.table.rows:
+            for cell in row.cells:
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
         
         # Add the third table (table3) with 10 rows and 2 columns ############--------------------------------this needs to be DYNAMIC-------------------------####
         table3_position = (5344484, 3087191)
@@ -984,6 +990,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.margin_top = 0
                 cell.margin_bottom = 0
                 cell.text_frame.paragraphs[0].font.color.rgb = RGBColor(0, 0, 0)
+                
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
         
         shape_11.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
@@ -1063,6 +1073,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                     
                     # Set text direction to left-to-right (LTR)
                     paragraph._pPr.set('rtl', '0')
+                
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
 
 
                 
@@ -1097,6 +1111,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
         #shape_13.width = table3.width
         shape_13.width = Inches(2384824 / 914400)
+
+        for row in shape_13.rows:
+            for cell in row.cells:
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
 
         # Shape 15: Table
         shape_15 = new_slide.shapes.add_table(2, 1, Inches(5342195 / 914400), Inches(5567230 / 914400), Inches(7136239 / 914400), Inches(1034316 / 914400)).table
@@ -1348,6 +1368,12 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #    shape_20.rows[i].height = new_other_row_height
         
         #shape_20.rows[num_rows - 1].height = new_last_row_height
+
+        for row in shape_20.rows:
+            for cell in row.cells:
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
         
         # Shape 21: Table
         # Shape 21: Table
@@ -1406,6 +1432,11 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Set the text color to white for the first row
         shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
+        for row in shape_21.rows:
+            for cell in row.cells:
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
         ####################-====================================================================================DONUT 1
 
        # Ensure variables are not None, blank, or NaN
@@ -1530,19 +1561,21 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 shape.top == position[1] and
                 shape.height == height and
                 shape.width == width):
+                
                 # Fill the shape's text with today's date
                 text_frame = shape.text_frame
                 text_frame.clear()  # Clear existing text
-        
-                p = text_frame.add_paragraph()
-                p.text = today_date
-        
-                # Set font properties
-                font = p.font
-                font.name = 'Tajawal'
-                font.size = Pt(18)
-                font.color.rgb = RGBColor(255, 255, 255)  # White color
-        
+            
+                # Directly set the text of the textbox
+                text_frame.text = today_date
+            
+                # Set font properties for the entire text frame
+                for paragraph in text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.name = 'Tajawal'
+                        run.font.size = Pt(18)
+                        run.font.color.rgb = RGBColor(255, 255, 255)  # White color
+            
                 # Set vertical alignment to middle
                 text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
 
