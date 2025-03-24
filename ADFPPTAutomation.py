@@ -697,7 +697,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
 
-        for row in table1.rows:
+        for row in table1.table.rows:
             for cell in row.cells:
                 for p in text_frame.paragraphs:
                     p._pPr.set('algn', 'l')
