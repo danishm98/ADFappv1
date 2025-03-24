@@ -1141,6 +1141,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.text_frame.paragraphs[0].font.size = Pt(13)
                 cell.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT
                 #cell.text_frame.paragraphs[0].space_after = Pt(0)  # Minimal line spacing
+            
+                for p in cell.text_frame.paragraphs:
+                    #p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
 
         shape_15.rows[0].height = int(shape_15.rows[0].height * 0.6)
 
