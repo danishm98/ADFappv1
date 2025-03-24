@@ -696,7 +696,13 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         column_widths = [1533857, 1071297, 1062459, 1202921, 1394530, 1372944, 867980, 1416027, 1164051, 1085155]
         for i, width in enumerate(column_widths):
             table1.table.columns[i].width = width
-    
+
+        for row in table1.rows:
+            for cell in row.cells:
+                for p in text_frame.paragraphs:
+                    p._pPr.set('algn', 'l')
+                    p._pPr.set('rtl', '0')
+        
         # Define properties for the second table (table2)
         table2_position = (304800, 2271153)
         table2_height = 2287085
