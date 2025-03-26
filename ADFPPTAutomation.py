@@ -1608,8 +1608,8 @@ st.title("ADF team Project Cards - Excel to PowerPoint Automation")
 
 st.header("Instructions to use this App effectively:")
 st.markdown("""
-1. To facilitate easier uploads and avoid needing to download copies before each upload, make sure the '07. ADF Automation' folder has been added as a shortcut on your PC via OneDrive (select 'Add Shortcut to OneDrive' from the SharePoint site). Then, select those files while uploading and copies of them will be used automatically.
-2. Ideally, we want to avoid as much blank data as possible, unless absolutely necessary. Hidden rows/columns are automatically excluded.
+1. Make sure the '07. ADF Automation' folder from SharePoint has been added as a shortcut on your PC via OneDrive (select 'Add Shortcut to OneDrive' from the SharePoint site). Then, select those files while uploading.
+2. Ideally, avoid as much blank data as possible, and avoid hiding rows, unless absolutely necessary. 
 3. The project images need to be zipped into a folder before upload, with file names matching corresponding project names. If you need to exclude a project in the PPT, no need to remove the image from the zip folder, it'll be excluded automatically. Just mark the 'Include in PPT' column as 'no'. In other words, the Images ZIP and PPT Template don't need updating each time the Excel data changes.
 """)
 
