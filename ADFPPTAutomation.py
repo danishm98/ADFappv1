@@ -1610,7 +1610,8 @@ st.header("Instructions to use this App effectively:")
 st.markdown("""
 1. Make sure the '07. ADF Automation' folder from SharePoint has been added as a shortcut on your PC via OneDrive (select 'Add Shortcut to OneDrive' from the SharePoint site). Then, select those files while uploading.
 2. Ideally, avoid as much blank data as possible, and avoid hiding rows, unless absolutely necessary. 
-3. The project images need to be zipped into a folder before upload, with file names matching corresponding project names. If you need to exclude a project in the PPT, no need to remove the image from the zip folder, it'll be excluded automatically. Just mark the 'Include in PPT' column as 'no'. In other words, the Images ZIP and PPT Template don't need updating each time the Excel data changes.
+3. Make sure at least all projects from CM tab are not hidden in the PM tab and vice versa.
+4. The project PPT images need to be zipped into a folder, with file names matching corresponding project names. The ZIP file does not need to be modified after, even if you need to exclude a project. Just mark the 'Include in PPT' column in CM tab as 'no'. 
 """)
 
 # File uploaders
