@@ -327,9 +327,9 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 slides_count_PM += 1
 
     #print(f"Number of data (project) rows in PM tab: {slides_count_PM}")
-    if slides_count_PM == 0: #or slides_count != slides_count_PM:
-        st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
-        st.stop()
+    #if slides_count_PM == 0: #or slides_count != slides_count_PM:
+    #    st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
+    #    st.stop()
 
     for idx, cell in enumerate(header_row_pm): #capture data for relevant, non-blank rows
       if cell is not None:
