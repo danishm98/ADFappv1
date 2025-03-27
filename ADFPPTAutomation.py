@@ -78,7 +78,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     
 
     
-    df = read_excel(excel_path)
+    #df = read_excel(excel_path)
     ppt = Presentation(pptx_path)
 
     
