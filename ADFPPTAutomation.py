@@ -409,7 +409,9 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             #if row[project_name_col_sheet2] in project_names:
             if row[project_no_PM_col] in project_nos:
                 data_rows_PM.append(row)
+                print(f"matching row/record:1")
 
+    
     
     #if len(data_rows) != len(data_rows_PM):
     #    st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
