@@ -347,7 +347,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             if "Project Status" in cell_value:
                 project_status_col = idx
             elif "No." in cell_value:
-                project_no_PM_col = idx
+                project_no_pm_col = idx
             elif "Project Name" in cell_value:
                 project_name_col_sheet2 = idx
             elif "Design Status" in cell_value:
@@ -407,7 +407,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
         if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
             #if row[project_name_col_sheet2] in project_names:
-            if row[project_no_PM_col] in project_nos:
+            if row[project_no_pm_col] in project_nos:
                 data_rows_PM.append(row)
                 print(f"matching row/record:1")
 
