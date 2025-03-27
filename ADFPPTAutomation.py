@@ -379,7 +379,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     data_rows = []
     for row_idx, row in enumerate(sheet.iter_rows(min_row=include_in_ppt_idx + 2, max_row=sheet.max_row, values_only=True)):
         if not is_hidden_row_or_column(sheet, row_idx=row_idx + include_in_ppt_idx + 2):
-            if row[include_in_ppt_col] == "yes":  # if that particular row is to be included in the PPT or not
+            if row[include_in_ppt_col] == "yes" or row[include_in_ppt_col] == "Yes":  # if that particular row is to be included in the PPT or not
                 data_rows.append(row)
 
 
