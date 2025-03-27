@@ -79,7 +79,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
     
     df = read_excel(excel_path)
-    #ppt = Presentation(pptx_path)
+    ppt = Presentation(pptx_path)
 
     
     # Load the workbook using openpyxl
@@ -87,6 +87,9 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     wb = load_workbook(excel_file, data_only=True)
     sheet = wb["CM"]
     sheet2 = wb["PM"] ### test PM tab in same code
+
+    #df_cm = pd.read_excel(excel_path, sheet_name='CM', engine='openpyxl')
+    #df_pm = pd.read_excel(excel_path, sheet_name='PM', engine='openpyxl')
     
     # Function to check if a row or column is hidden
     def is_hidden_row_or_column(sheet, row_idx=None, col_idx=None):
@@ -146,6 +149,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     vat_col = None
     
     current_project_cost_col = None
+    project_no_pm_col = None
     project_status_col = None
     design_status_col = None
     construction_start_date_col = None
@@ -217,6 +221,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 project_name_col = idx
             elif "Include in PPT" in cell_value:
                 include_in_ppt_col = idx
+            elif "No." in cell_value:
+                project_no_col = idx
             elif "Site Area" in cell_value:
                 site_area_col = idx
             elif "Built up Area" in cell_value:
@@ -340,6 +346,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             #    current_project_cost_col = idx
             if "Project Status" in cell_value:
                 project_status_col = idx
+            elif "No." in cell_value:
+                project_no_PM_col = idx
             elif "Project Name" in cell_value:
                 project_name_col_sheet2 = idx
             elif "Design Status" in cell_value:
@@ -391,12 +399,15 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
     # Extract 'Project Name' values from data_rows
     project_names = {row[project_name_col] for row in data_rows}
+    project_nos = {row[project_no_col] for row in data_rows}
+    
     
     # Populate data_rows_PM with matching rows from sheet2
     data_rows_PM = []
     for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
         if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
-            if row[project_name_col_sheet2] in project_names:
+            #if row[project_name_col_sheet2] in project_names:
+            if row[project_no_PM_col] in project_nos:
                 data_rows_PM.append(row)
 
     
