@@ -385,7 +385,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
     # Extract the rows of actual data (ignoring hidden rows)
     data_rows = []
-    for row_idx, row in enumerate(sheet.iter_rows(min_row=include_in_ppt_idx + 2, max_row=sheet.max_row, values_only=True)):
+    for row_idx, row in enumerate(sheet.iter_rows(min_row=include_in_ppt_idx + 2, max_row=1000, values_only=True)):
         if not is_hidden_row_or_column(sheet, row_idx=row_idx + include_in_ppt_idx + 2):
             if row[include_in_ppt_col] == "yes" or row[include_in_ppt_col] == "Yes":  # if that particular row is to be included in the PPT or not
                 data_rows.append(row)
@@ -404,7 +404,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     
     # Populate data_rows_PM with matching rows from sheet2
     data_rows_PM = []
-    for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
+    for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=1000, values_only=True)):
         if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
             #if row[project_name_col_sheet2] in project_names:
             if row[project_no_pm_col] in project_nos:
@@ -434,7 +434,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 #### - upload in each iteration, or do it separately in another loop
         
         # Extract the first row of actual data (ignoring hidden rows)
-        for row_idx, row in enumerate(sheet.iter_rows(min_row=include_in_ppt_idx + 2, max_row=sheet.max_row, values_only=True)):
+        for row_idx, row in enumerate(sheet.iter_rows(min_row=include_in_ppt_idx + 2, max_row=1000, values_only=True)):
             if not is_hidden_row_or_column(sheet, row_idx=row_idx + include_in_ppt_idx + 2):
                 if row[include_in_ppt_col] == "yes": # if that particular row is to be included in the PPT or not
                     if project_name_col is not None:
@@ -491,7 +491,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #print(f"Project Name: {project_name} and Include in PPT:{include_in_ppt}")
 
         # Extract the first row of actual PM TAB DATA.. (ignoring hidden rows)
-        for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=sheet2.max_row, values_only=True)):
+        for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row= 1000, values_only=True)):
             if not is_hidden_row_or_column(sheet2, row_idx=row_idx + category_index + 2):
                 #if current_project_cost_col is not None:
                 #    current_project_cost = pm_row[current_project_cost_col]
