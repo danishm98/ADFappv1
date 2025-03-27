@@ -286,16 +286,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 return f"{number / 1_000_000:.2f} M"
 
     # Count number of total data rows in the Excel sheet
-    slides_count = 0
-    for row in sheet.iter_rows(min_row=include_in_ppt_idx + 2):
-        if not is_hidden_row_or_column(sheet, row_idx=row[0].row):
-            if any(cell.value for cell in row):
-                slides_count += 1
+    #slides_count = 0
+    #for row in sheet.iter_rows(min_row=include_in_ppt_idx + 2):
+    #    if not is_hidden_row_or_column(sheet, row_idx=row[0].row):
+    #        if any(cell.value for cell in row):
+    #            slides_count += 1
     
     #print(f"Number of data (project) rows: {slides_count}")
-    if slides_count == 0:
-        st.error(f"Either the Excel file's CM tab has ALL hidden/blank rows or the 'Include in PPT column' is not set to 'yes' for any record. Please re-upload and try again")
-        st.stop()
+    #if slides_count == 0:
+    #    st.error(f"Either the Excel file's CM tab has ALL hidden/blank rows or the 'Include in PPT column' is not set to 'yes' for any record. Please re-upload and try again")
+    #    st.stop()
     
     
 
@@ -320,16 +320,16 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     header_row_pm = [cell.value for cell in sheet2[category_index + 1]]
     #print(f"header row PM: {header_row_pm}")
 
-    slides_count_PM = 0
-    for row in sheet2.iter_rows(min_row=category_index + 2):
-        if not is_hidden_row_or_column(sheet2, row_idx=row[0].row):
-            if any(cell.value for cell in row):
-                slides_count_PM += 1
+    #slides_count_PM = 0
+    #for row in sheet2.iter_rows(min_row=category_index + 2):
+    #    if not is_hidden_row_or_column(sheet2, row_idx=row[0].row):
+    #        if any(cell.value for cell in row):
+    #            slides_count_PM += 1
 
     #print(f"Number of data (project) rows in PM tab: {slides_count_PM}")
-    if slides_count_PM == 0: #or slides_count != slides_count_PM:
-        st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
-        st.stop()
+    #if slides_count_PM == 0: #or slides_count != slides_count_PM:
+    #    st.error(f"The Excel file's PM tab is missing or hidden project rows. Please fix, re-upload the Excel file and try again")
+    #    st.stop()
 
     for idx, cell in enumerate(header_row_pm): #capture data for relevant, non-blank rows
       if cell is not None:
