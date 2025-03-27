@@ -1612,6 +1612,7 @@ st.markdown("""
 2. Ideally, avoid as much blank data as possible, and avoid hiding rows, unless absolutely necessary. 
 3. Make sure at least all projects from CM tab are not hidden in the PM tab and vice versa.
 4. The project PPT images need to be zipped into a folder, with file names matching corresponding project names from CM tab. The ZIP file does not need to be modified after, even if you need to exclude a project. Just mark the 'Include in PPT' column in CM tab as 'no'. 
+5. If you face any issues or have questions, reach out to: Danish Memon
 """)
 
 # File uploaders
