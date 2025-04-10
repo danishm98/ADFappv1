@@ -542,7 +542,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 text_frame.clear()  # Clear existing text (if any)
                 # Add project_name to the placeholder shape
                 p = text_frame.paragraphs[0]
-                p.text = project_name
+                p.text = str(project_name)
                 text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
                 p.font.size = Pt(24)  # Set font size (optional)
                 p.alignment = PP_ALIGN.RIGHT  # Align text to the right
