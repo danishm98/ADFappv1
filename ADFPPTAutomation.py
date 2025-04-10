@@ -621,7 +621,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 cell.fill.solid()
                 cell.fill.fore_color.rgb = RGBColor(255, 255, 255)
                 
-        table1.table.cell(1, 0).text = project_name
+        table1.table.cell(1, 0).text = str(project_name)
         table1.table.cell(1,0).text_frame.paragraphs[0].font.bold = True
         table1.table.cell(1,0).text_frame.paragraphs[0].font.name = 'Tajawal'
         table1.table.cell(1,0).text_frame.paragraphs[0].font.size = Pt(12)
