@@ -530,7 +530,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Process each image file
         for image_file in image_files:
             image_name, _ = os.path.splitext(image_file)
-            if project_name.lower() == image_name.lower():
+            if str(project_name).lower() == str(image_name).lower():
                 image_path = os.path.join(image_folder_path, image_file)
                 new_slide.shapes.add_picture(image_path, left=320893, top=4800600, width=4858788, height=4074726)
         
