@@ -1497,7 +1497,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Create a figure and axis with equal aspect ratio to avoid squeezing
         fig, ax = plt.subplots(figsize=(8, 8))
+
         
+        sizes = [max(0, size) for size in sizes]
+
         # Create the donut chart with thicker white borders for slices
         wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3), 
@@ -1541,6 +1544,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         
         # Create a figure and axis with equal aspect ratio to avoid squeezing
         fig2, ax2 = plt.subplots(figsize=(8, 8))
+
+        
+        sizes = [max(0, size) for size in sizes]
+
         
         # Create the donut chart with thicker white borders for slices
         wedges2, texts2, autotexts2 = ax2.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
