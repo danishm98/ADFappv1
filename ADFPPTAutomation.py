@@ -1491,10 +1491,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_21.rows[0].height = int(total_height * 0.3)
         shape_21.rows[1].height = int(total_height * 0.7)
 
-        if risk_assessment:
-            lines = risk_assessment.split('\n')
-        else:
-            lines = []
+        #if risk_assessment:
+        #    lines = risk_assessment.split('\n')
+        #else:
+        #    lines = []
 
         # Get the text frame of the cell
         #text_frame = shape_21.cell(1, 0).text_frame
