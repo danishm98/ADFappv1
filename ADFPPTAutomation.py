@@ -164,6 +164,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     daily_machinery_col = None
     remaining_items_col = None
     risk_assessment_col = None
+    basis_project_col = None
 
     project_name_col_sheet2 = None
 
@@ -194,6 +195,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     contigency = ""
     variation = ""
     vat = ""
+    basis_project = ""
 
     project_name_PM = ""
     current_project_cost = ""
@@ -219,6 +221,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         if cell_value and not is_hidden_row_or_column(sheet, col_idx=idx):
             if "Project Name" in cell_value:
                 project_name_col = idx
+            elif "Basis of Project Cost" in cell_value:
+                basis_project_col = idx
             elif "Include in PPT" in cell_value:
                 include_in_ppt_col = idx
             elif "No." in cell_value:
@@ -464,6 +468,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 if row[include_in_ppt_col] == "yes": # if that particular row is to be included in the PPT or not
                     if project_name_col is not None:
                         project_name = data_row[project_name_col]
+                    if basis_project_col is not None:
+                        basis_project = data_row[basis_project_col]
                     if include_in_ppt_col is not None:
                         include_in_ppt = data_row[include_in_ppt_col]
                     if site_area_col is not None:
@@ -1198,6 +1204,38 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
 
         shape_15.rows[0].height = int(shape_15.rows[0].height * 0.6)
 
+        if basis_project:
+            lines = basis_project.split('\n')
+        else:
+            lines = []
+
+        # Get the text frame of the cell
+        text_frame = shape_15.cell(1, 0).text_frame
+
+        # Clear any existing paragraphs
+        text_frame.clear()
+
+        if lines:
+            # Add each line as a bullet point
+            for line in lines:
+                p = text_frame.add_paragraph()
+                p.text = f"- {line}"
+                p.font.size = Pt(13)
+                p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
+                p.level = 0  # Bullet point level
+                p.alignment = PP_ALIGN.LEFT
+                p.bullet = True  # Enable bullet points
+                p.bullet_char = '\u2022'  # Set bullet character to a solid circle
+
+            # Optionally, set the font name for all paragraphs
+            for p in text_frame.paragraphs:
+                p.font.name = "Tajawal"
+                p.font.color.rgb = RGBColor(0, 0, 0)
+                p.font.size = Pt(13)
+                p.alignment = PP_ALIGN.LEFT
+        else:
+            text_frame.text = ""
+        
         values = []
         values2 = []
 
@@ -1459,30 +1497,50 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             lines = []
 
         # Get the text frame of the cell
-        text_frame = shape_21.cell(1, 0).text_frame
+        #text_frame = shape_21.cell(1, 0).text_frame
 
         # Clear any existing paragraphs
-        text_frame.clear()
+        #text_frame.clear()
 
-        if lines:
+        #if lines:
             # Add each line as a bullet point without introducing extra line breaks
-            for line in lines:
-                p = text_frame.add_paragraph()
-                #p.text = line.strip()  # Strip any leading/trailing whitespace
-                p.text = f"- {line}"
-                p.font.size = Pt(13)
-                p.level = 0  # Bullet point level
-                p.alignment = PP_ALIGN.LEFT
+        #    for line in lines:
+        #        p = text_frame.add_paragraph()
+        #        #p.text = line.strip()  # Strip any leading/trailing whitespace
+        #        p.text = f"- {line}"
+        #        p.font.size = Pt(13)
+        #        p.level = 0  # Bullet point level
+        #        p.alignment = PP_ALIGN.LEFT
 
             # Optionally, set the font name for all paragraphs
-            for p in text_frame.paragraphs:
+        #    for p in text_frame.paragraphs:
+        #        p.font.name = "Tajawal"
+        #        p.font.color.rgb = RGBColor(0, 0, 0)
+        #        p.font.size = Pt(13)
+        #        p.alignment = PP_ALIGN.LEFT
+        #else:
+        #    text_frame.text = ""
+
+        text_frame = shape_21.cell(1, 0).text_frame
+        text_frame.clear()
+        lines = str(risk_assessment or "").strip().split('\n')
+        
+        if lines:
+            for idx, line in enumerate(lines):
+                cleaned_line = line.strip()
+                if idx == 0:
+                    text_frame.text = f"- {cleaned_line}"
+                else:
+                    para = text_frame.add_paragraph()
+                    para.text = f"- {cleaned_line}"
+                p = text_frame.paragraphs[idx]
+                p.font.size = Pt(13)
                 p.font.name = "Tajawal"
                 p.font.color.rgb = RGBColor(0, 0, 0)
-                p.font.size = Pt(13)
                 p.alignment = PP_ALIGN.LEFT
         else:
             text_frame.text = ""
-
+        
         # Set the text color to white for the first row
         shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
