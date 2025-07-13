@@ -1521,25 +1521,25 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #else:
         #    text_frame.text = ""
 
-        text_frame = shape_21.cell(1, 0).text_frame
-        text_frame.clear()
-        lines = str(risk_assessment or "").strip().split('\n')
+        #text_frame = shape_21.cell(1, 0).text_frame
+        #text_frame.clear()
+        #lines = str(risk_assessment or "").strip().split('\n')
         
-        if lines:
-            for idx, line in enumerate(lines):
-                cleaned_line = line.strip()
-                if idx == 0:
-                    text_frame.text = f"- {cleaned_line}"
-                else:
-                    para = text_frame.add_paragraph()
-                    para.text = f"- {cleaned_line}"
-                p = text_frame.paragraphs[idx]
-                p.font.size = Pt(13)
-                p.font.name = "Tajawal"
-                p.font.color.rgb = RGBColor(0, 0, 0)
-                p.alignment = PP_ALIGN.LEFT
-        else:
-            text_frame.text = ""
+        #if lines:
+        #    for idx, line in enumerate(lines):
+        #        cleaned_line = line.strip()
+        #        if idx == 0:
+        #            text_frame.text = f"- {cleaned_line}"
+        #        else:
+        #            para = text_frame.add_paragraph()
+        #            para.text = f"- {cleaned_line}"
+        #        p = text_frame.paragraphs[idx]
+        #        p.font.size = Pt(13)
+        #        p.font.name = "Tajawal"
+        #        p.font.color.rgb = RGBColor(0, 0, 0)
+        #        p.alignment = PP_ALIGN.LEFT
+        #else:
+        #    text_frame.text = ""
 
 
         
