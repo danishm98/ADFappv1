@@ -1105,8 +1105,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             for cell in row.cells:
                 cell.margin_left = 0
                 cell.margin_right = 0
-                cell.margin_top = 0
-                cell.margin_bottom = 0
+                #cell.margin_top = 0
+                #cell.margin_bottom = 0
                 cell.text_frame.paragraphs[0].font.size = Pt(13)
                 cell.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
                 cell.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
