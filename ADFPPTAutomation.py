@@ -1569,9 +1569,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         #else:
         #    text_frame.text = ""
 
-        from pptx.util import Pt
-        from pptx.dml.color import RGBColor
-        from pptx.enum.text import PP_ALIGN
+        
         
         text_frame = shape_21.cell(1, 0).text_frame
         text_frame.clear()
