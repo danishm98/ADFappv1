@@ -400,7 +400,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     # Extract 'Project Name' values from data_rows
     project_names = {row[project_name_col] for row in data_rows}
     project_nos = {row[project_no_col] for row in data_rows}
-
+    
     # Build a dictionary from the PM tab using Project Name as key (normalized)
     pm_data_map = {}
     for row_idx, row in enumerate(sheet2.iter_rows(min_row=category_index + 2, max_row=1000, values_only=True)):
@@ -408,18 +408,21 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             key = str(row[project_name_col_sheet2]).strip().lower() if row[project_name_col_sheet2] else None
             if key:
                 pm_data_map[key] = row
-
     # Match PM rows based on Project Name in the same order as CM tab
     data_rows_PM = []
     for cm_row in data_rows:
         cm_project_name = str(cm_row[project_name_col]).strip().lower()
         matched_pm_row = pm_data_map.get(cm_project_name)
-
+    
         if matched_pm_row:
+            print(f"Match found for Project Name: {cm_project_name}")
             data_rows_PM.append(matched_pm_row)
         else:
+            print(f"No PM data found for Project Name: {cm_project_name}")
             st.warning(f"No PM data found for Project Name: {cm_project_name}")
-            data_rows_PM.append([None] * 40)  # Safe fallback for missing PM row
+            data_rows_PM.append([None] * len(pm_data_map[next(iter(pm_data_map))]))  # Safe fallback for missing PM row
+
+
 
 
 
