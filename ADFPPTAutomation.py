@@ -1127,8 +1127,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_12.cell(2, 0).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
         shape_12.cell(2, 1).text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
 
-        shape_12.cell(2, 0).margin_top = Inches(0.02)
-        shape_12.cell(2, 1).margin_top = Inches(0.02)
+        #shape_12.cell(2, 0).margin_top = Inches(0.02)
+        #shape_12.cell(2, 1).margin_top = Inches(0.02)
         shape_12.cell(0,0).margin_top = Inches(0.03)
 
         for paragraph in shape_12.cell(2, 0).text_frame.paragraphs:
