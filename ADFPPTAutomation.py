@@ -1540,7 +1540,35 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 p.alignment = PP_ALIGN.LEFT
         else:
             text_frame.text = ""
+
+
         
+        text_frame = shape_21.cell(1, 0).text_frame
+        text_frame.clear()
+        
+        # Ensure the text frame is completely cleared
+        while text_frame.paragraphs:
+            text_frame._element.clear_content()
+        
+        lines = str(risk_assessment or "").strip().split('\n')
+        
+        if lines:
+            for idx, line in enumerate(lines):
+                cleaned_line = line.strip()
+                if cleaned_line:  # Ensure the line is not empty
+                    if idx == 0:
+                        text_frame.text = f"- {cleaned_line}"
+                    else:
+                        para = text_frame.add_paragraph()
+                        para.text = f"- {cleaned_line}"
+                    p = text_frame.paragraphs[idx]
+                    p.font.size = Pt(13)
+                    p.font.name = "Tajawal"
+                    p.font.color.rgb = RGBColor(0, 0, 0)
+                    p.alignment = PP_ALIGN.LEFT
+        else:
+            text_frame.text = ""
+
         # Set the text color to white for the first row
         shape_21.cell(0, 0).text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
