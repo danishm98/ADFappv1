@@ -750,6 +750,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                 for p in cell.text_frame.paragraphs:
                     #p._pPr.set('algn', 'l')
                     p._pPr.set('rtl', '0')
+                    p.alignment = PP_ALIGN.CENTER
+                    p.font.size = Pt(13)
 
         # Define properties for the second table (table2)
         table2_position = (304800, 2271153)
