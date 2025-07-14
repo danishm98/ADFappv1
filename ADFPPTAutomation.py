@@ -1003,10 +1003,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_11.rows[1].height = int(total_height * 0.74)
         shape_11.cell(0, 0).text = "Remaining Items"
 
-        if remaining_items:
-            lines = remaining_items.split('\n')
-        else:
-            lines = []
+        #if remaining_items:
+        #    lines = remaining_items.split('\n')
+        #else:
+        #    lines = []
 
         # Get the text frame of the cell
         text_frame = shape_11.cell(1, 0).text_frame
@@ -1014,27 +1014,48 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Clear any existing paragraphs
         text_frame.clear()
 
-        if lines:
-            # Add each line as a bullet point
-            for line in lines:
-                p = text_frame.add_paragraph()
-                p.text = f"- {line}"
-                p.font.size = Pt(13)
-                p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
-                p.level = 0  # Bullet point level
-                p.alignment = PP_ALIGN.LEFT
-                p.bullet = True  # Enable bullet points
-                p.bullet_char = '\u2022'  # Set bullet character to a solid circle
+        #if lines:
+        #    # Add each line as a bullet point
+        #    for line in lines:
+        #        p = text_frame.add_paragraph()
+        #        p.text = f"- {line}"
+        #        p.font.size = Pt(13)
+        #        p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
+        #        p.level = 0  # Bullet point level
+        #        p.alignment = PP_ALIGN.LEFT
+        #        p.bullet = True  # Enable bullet points
+        #        p.bullet_char = '\u2022'  # Set bullet character to a solid circle
 
             # Optionally, set the font name for all paragraphs
-            for p in text_frame.paragraphs:
-                p.font.name = "Tajawal"
-                p.font.color.rgb = RGBColor(0, 0, 0)
-                p.font.size = Pt(13)
-                p.alignment = PP_ALIGN.LEFT
+        #    for p in text_frame.paragraphs:
+        #        p.font.name = "Tajawal"
+        #        p.font.color.rgb = RGBColor(0, 0, 0)
+        #        p.font.size = Pt(13)
+        #        p.alignment = PP_ALIGN.LEFT
+        #else:
+        #    text_frame.text = ""
+
+        lines = str(remaining_items or "").strip().split('\n')
+        
+        if lines:
+            for idx, line in enumerate(lines):
+                cleaned_line = line.strip()
+                if cleaned_line:  # Ensure the line is not empty
+                    if idx == 0:
+                        text_frame.text = f"- {cleaned_line}"
+                    else:
+                        para = text_frame.add_paragraph()
+                        para.text = f"- {cleaned_line}"
+                    p = text_frame.paragraphs[idx]
+                    p.font.size = Pt(13)
+                    p.font.name = "Tajawal"
+                    p.font.color.rgb = RGBColor(0, 0, 0)
+                    p.alignment = PP_ALIGN.LEFT
         else:
             text_frame.text = ""
 
+        
+        
         # Set the first row background color to RGBColor(21, 42, 93) with white bold text
         shape_11.cell(0, 0).fill.solid()
         shape_11.cell(0, 0).fill.fore_color.rgb = RGBColor(21, 42, 93)
