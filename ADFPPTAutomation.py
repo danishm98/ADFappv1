@@ -669,6 +669,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         else:
             table1.table.cell(1, 4).text = str(target_completion_date)
 
+        table1.table.cell(1,4).text_frame_paragraphs[0].font.size = Pt(13)
+        
         if construction_start_date is None:
             table1.table.cell(1, 3).text = ""
         elif isinstance(construction_start_date, datetime):
