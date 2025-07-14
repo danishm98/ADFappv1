@@ -1150,6 +1150,17 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         shape_12.cell(2, 1).margin_left = Inches(0)
         shape_12.cell(2, 1).margin_right = Inches(0)
 
+        # Set the internal margins for the text frames in the third row to zero
+        shape_12.cell(2, 0).text_frame.margin_top = Inches(0)
+        shape_12.cell(2, 0).text_frame.margin_bottom = Inches(0)
+        shape_12.cell(2, 0).text_frame.margin_left = Inches(0)
+        shape_12.cell(2, 0).text_frame.margin_right = Inches(0)
+        
+        shape_12.cell(2, 1).text_frame.margin_top = Inches(0)
+        shape_12.cell(2, 1).text_frame.margin_bottom = Inches(0)
+        shape_12.cell(2, 1).text_frame.margin_left = Inches(0)
+        shape_12.cell(2, 1).text_frame.margin_right = Inches(0)
+
         
         # Shape 13: Table
         shape_13 = new_slide.shapes.add_table(1, 2, Inches(5333250 / 914400), Inches(2673352 / 914400), Inches(2362950 / 914400), Inches(365760 / 914400)).table
