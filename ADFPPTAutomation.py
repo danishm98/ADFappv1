@@ -668,8 +668,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
             table1.table.cell(1, 4).text = target_completion_date.strftime("%d %b %Y")
         else:
             table1.table.cell(1, 4).text = str(target_completion_date)
-
-        table1.table.cell(1,4).text_frame.paragraphs[0].font.size = Pt(13)
+        cell = table1.table.cell(1,4)
+        for paragraph in cell.text_frame.paragraphs:
+            paragraph.font.size = Pt(13)
+        #table1.table.cell(1,4).text_frame.paragraphs[0].font.size = Pt(13)
         
         if construction_start_date is None:
             table1.table.cell(1, 3).text = ""
