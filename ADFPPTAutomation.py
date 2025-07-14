@@ -907,7 +907,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
                         para = text_frame.add_paragraph()
                         para.text = f"- {cleaned_line}"
                     p = text_frame.paragraphs[idx]
-                    p.font.size = Pt(13)
+                    p.font.size = Pt(10)
                     p.font.name = "Tajawal"
                     p.font.color.rgb = RGBColor(0, 0, 0)
                     p.alignment = PP_ALIGN.LEFT
