@@ -1642,7 +1642,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Create the donut chart with thicker white borders for slices
         wedges, texts, autotexts = ax.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
                                           startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3),
-                                          pctdistance=0.85, textprops=dict(color='white', fontsize=28))
+                                          pctdistance=0.85, textprops=dict(color='white', fontsize=24))
 
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax.legend(wedges, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
@@ -1690,7 +1690,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Create the donut chart with thicker white borders for slices
         wedges2, texts2, autotexts2 = ax2.pie(sizes, colors=colors, autopct=lambda p: '{:.0f}%'.format(round(p)) if p > 7 else '',
                                               startangle=90, wedgeprops=dict(width=0.3, edgecolor='white', linewidth=3),
-                                              pctdistance=0.85, textprops=dict(color='white', fontsize=28))
+                                              pctdistance=0.85, textprops=dict(color='white', fontsize=24))
 
         # Add legends at the bottom of the chart in one line without borders or shadows and make them smaller horizontally
         ax2.legend(wedges2, labels, loc="upper center", bbox_to_anchor=(0.5, -0.1), frameon=False, ncol=2, fontsize=25,
