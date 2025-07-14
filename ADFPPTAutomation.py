@@ -450,7 +450,7 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
     ##########-----all code below in this function needs to be dynamic and looped------#########
 
     # Insert the new slide immediately starting from slide 3 (position 4)
-    insert_position = 3  # Start inserting from slide 3 (index starts at 0)
+    insert_position = 4  # Start inserting from slide 3 (index starts at 0)
     for data_row, pm_row in zip(data_rows, data_rows_PM): # Only produce the no. of slides as data rows in the Excel sheet
         new_slide = ppt.slides.add_slide(slide_layout)
         xml_slides = ppt.slides._sldIdLst  # Access the low-level XML structure of slides
