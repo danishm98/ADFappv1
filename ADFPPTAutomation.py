@@ -816,6 +816,8 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         cell5.text_frame.paragraphs[0].font.bold = True  # Bold text
         cell5.text_frame.paragraphs[0].font.name = 'Tajawal'
 
+        
+        
         #table2.table.cell(1,1).text = str(
 
         # Adjust column widths for table2
@@ -860,10 +862,10 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         table2.table.cell(3,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
 
 
-        if space_programme:
-            lines = space_programme.split('\n')
-        else:
-            lines = []
+        #if space_programme:
+        #    lines = space_programme.split('\n')
+        #else:
+        #    lines = []
 
         # Get the text frame of the cell
         text_frame = table2.table.cell(4, 2).text_frame
@@ -871,25 +873,47 @@ def read_excel_and_write_to_pptx(excel_path, pptx_path , image_folder_path):
         # Clear any existing paragraphs
         text_frame.clear()
 
-        if lines:
-            # Add each line as a bullet point
-            for line in lines:
-                p = text_frame.add_paragraph()
-                p.text = f"- {line}"
-                p.font.size = Pt(10)
-                p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
-                p.level = 0  # Bullet point level
-                p.alignment = PP_ALIGN.LEFT
+        #if lines:
+        #    # Add each line as a bullet point
+        #    for line in lines:
+        #        p = text_frame.add_paragraph()
+        #        p.text = f"- {line}"
+        #        p.font.size = Pt(10)
+        #        p.font.color.rgb = RGBColor(0, 0, 0)  # Black text color
+        #        p.level = 0  # Bullet point level
+        #        p.alignment = PP_ALIGN.LEFT
 
             # Optionally, set the font name for all paragraphs
-            for p in text_frame.paragraphs:
-                p.font.name = "Tajawal"
-                p.font.color.rgb = RGBColor(0, 0, 0)
-                p.font.size = Pt(10)
-                p.alignment = PP_ALIGN.LEFT
+        #    for p in text_frame.paragraphs:
+        #        p.font.name = "Tajawal"
+        #        p.font.color.rgb = RGBColor(0, 0, 0)
+        #        p.font.size = Pt(10)
+        #        p.alignment = PP_ALIGN.LEFT
+        #else:
+        #    text_frame.text = ""
+
+        #text_frame = shape_21.cell(1, 0).text_frame
+        text_frame.clear()
+        
+        lines = str(space_programme or "").strip().split('\n')
+        
+        if lines:
+            for idx, line in enumerate(lines):
+                cleaned_line = line.strip()
+                if cleaned_line:  # Ensure the line is not empty
+                    if idx == 0:
+                        text_frame.text = f"- {cleaned_line}"
+                    else:
+                        para = text_frame.add_paragraph()
+                        para.text = f"- {cleaned_line}"
+                    p = text_frame.paragraphs[idx]
+                    p.font.size = Pt(13)
+                    p.font.name = "Tajawal"
+                    p.font.color.rgb = RGBColor(0, 0, 0)
+                    p.alignment = PP_ALIGN.LEFT
         else:
             text_frame.text = ""
-
+        
         table2.table.cell(4,2).text_frame.paragraphs[0].font.size = Pt(10)
         table2.table.cell(4,2).text_frame.paragraphs[0].font.name = 'Tajawal'
         table2.table.cell(4,2).text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT  # Left align the text
